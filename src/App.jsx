@@ -1,14 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter } from 'react-router-dom';
-import ClientPage from './page/ClientPage';
+import WebPage from './page/WebPage';
+import { TokenProvider } from './contexts/TokenContext';
+import { CourseProvider } from './contexts/CourseContext';
+import { TeamProvider } from './contexts/TeamContext';
 
 function App() {
   return (
-    <BrowserRouter>
-      <ClientPage/>
-    </BrowserRouter>
-    
+    <TokenProvider>
+      <CourseProvider>
+        <TeamProvider>
+          <BrowserRouter>
+            <WebPage/>
+          </BrowserRouter>
+        </TeamProvider>
+      </CourseProvider>
+    </TokenProvider>
   );
 }
 

@@ -1,4 +1,7 @@
-export const BASE_URL = process.env.REACT_APP_SERVER_IP;
+
+//auth
+export const LOGIN = '/login'
+export const SIGNUP = '/sign-up'
 
 //board
 export const COMMON_BOARD = '/board';

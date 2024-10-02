@@ -1,6 +1,17 @@
+@font-face {
+  font-family: 'Noto Sans KR';
+  src: url('./fonts/notosans/NotoSansKR-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Noto Sans KR bold';
+  src: url('./fonts/notosans/NotoSansKR-Bold.ttf');
+}
+
 body {
+  color: #0f1317;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -11,3 +22,5 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
