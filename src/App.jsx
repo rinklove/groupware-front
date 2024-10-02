@@ -1,12 +1,11 @@
-import logo from './logo.svg';
-import './App.css';
+import './index.css';
 import { BrowserRouter } from 'react-router-dom';
-import ClientPage from './page/ClientPage';
+import MainPage from './page/MainPage';
 
 function App() {
   return (
     <BrowserRouter>
-      <ClientPage/>
+      <MainPage/>
     </BrowserRouter>
     
   );
