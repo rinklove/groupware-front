@@ -3,7 +3,13 @@
   src: url('./fonts/notosans/NotoSansKR-Regular.ttf');
 }
 
+@font-face {
+  font-family: 'Noto Sans KR bold';
+  src: url('./fonts/notosans/NotoSansKR-Bold.ttf');
+}
+
 body {
+  color: #0f1317;
   margin: 0;
   font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
