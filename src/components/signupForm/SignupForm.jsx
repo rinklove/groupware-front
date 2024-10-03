@@ -101,6 +101,7 @@ const SignupForm = () => {
                                 variant='primary'
                                 type='submit' // 'submit'으로 두면 onSubmit에서 처리됨
                                 innerText='회원가입'
+                                color='#ffffff'
                                 width='100%'
                             />
                         </td>

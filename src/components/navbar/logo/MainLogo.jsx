@@ -26,7 +26,7 @@ const AppNameSpan = styled.span`
 const MainLogo = () => {
     const navigate = useNavigate();
   return (
-    <LogoContainer onClick={() => navigate(ROUTES.HOME)}>
+    <LogoContainer onClick={() => navigate(`${ROUTES.HOME}`)}>
         <img 
             src={logo}
             width={50}

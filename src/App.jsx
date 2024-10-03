@@ -10,7 +10,7 @@ function App() {
     <TokenProvider>
       <CourseProvider>
         <TeamProvider>
-          <BrowserRouter basename={process.env.PUBLIC_URL}>
+          <BrowserRouter basename='/groupware-front'>
             <WebPage/>
           </BrowserRouter>
         </TeamProvider>

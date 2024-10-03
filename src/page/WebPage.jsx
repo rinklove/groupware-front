@@ -7,6 +7,7 @@ import LoginPage from './LoginPage'
 import SignupPage from './SignupPage'
 import Footer from '../components/common/Footer'
 import styled from 'styled-components'
+import AdminPage from './admin/AdminPage'
 
 const StyledDiv = styled.div`
   
@@ -24,6 +25,7 @@ const WebPage = () => {
         <Route path={ROUTES.HOME} element={<Home/>}/>
         <Route path={ROUTES.LOGIN} element={<LoginPage/>}/>
         <Route path={ROUTES.SIGNUP} element={<SignupPage/>}/>
+        <Route path={ROUTES.ADMIN_MAIN} element={<AdminPage/>}/>
       </Routes>
       <Footer/>
     </StyledDiv>

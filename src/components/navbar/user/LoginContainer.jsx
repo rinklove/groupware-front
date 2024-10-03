@@ -1,6 +1,6 @@
 import React from 'react'
 import CustomButton from '../../common/CustomButton'
-import { ROUTES } from '../../../constants/routes'
+import { BASIC_ROUTE, ROUTES } from '../../../constants/routes'
 
 
 const LoginContainer = () => {
@@ -8,7 +8,7 @@ const LoginContainer = () => {
     <>
       <CustomButton
         variant='link'
-        href={ROUTES.LOGIN}
+        href={`${BASIC_ROUTE}${ROUTES.LOGIN}`}
         innerText='로그인'
       />
     </>

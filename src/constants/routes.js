@@ -1,5 +1,8 @@
+export const BASIC_ROUTE = '/groupware-front'
 export const ROUTES = {
     "HOME": '/',
-    "LOGIN": '/groupware-front/login',
-    "SIGNUP": '/groupware-front/signup'
+    "LOGIN": '/login',
+    "SIGNUP": '/signup',
+    "ADMIN": '/admin',
+    "ADMIN_MAIN": '/main'
 }

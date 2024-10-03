@@ -1,5 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import CustomInput from './CustomInput';
+import { BASIC_ROUTE, ROUTES } from '../../constants/routes';
+import CustomButton from './CustomButton';
 
 const StyledFooter = styled.footer`
     background-color: #0f1317;
@@ -19,14 +22,12 @@ const StyledFooter = styled.footer`
 const Footer = () => {
   return (
     <StyledFooter>
-      <span>1팀</span>
-      <div>
-        {/* <span>김민우</span> */}
-        {/* <span>류희수</span> */}
-        {/* <span>박상혁</span> */}
-        {/* <span>이준호</span> */}
-        {/* <span>조믿음</span> */}
-      </div>
+      <CustomButton
+        variant='link'
+        href={`${BASIC_ROUTE}${ROUTES.ADMIN}${ROUTES.ADMIN_MAIN}`}
+        innerText='관리자용 페이지'
+        color='#ffffff'
+      />
     </StyledFooter>
   )
 }

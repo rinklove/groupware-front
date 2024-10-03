@@ -1,14 +1,16 @@
-import React from 'react'
-import HomeCarosel from '../components/home/HomeCarosel'
-import HomeContainer from '../components/home/HomeContainer'
-import WelcomeContainer from '../components/home/WelcomeContainer'
+import React, { useContext } from 'react'
+import { TokenContext } from '../contexts/TokenContext'
+import NotUserHomePage from './NotUserHomePage'
+import UserHomePage from './UserHomePage'
+import HomeCarousel from '../components/home/HomeCarosel'
 
 const Home = () => {
+  const { token } = useContext(TokenContext);
+
   return (
     <div>
-      <HomeCarosel/>
-      <WelcomeContainer/>
-      <HomeContainer/>
+      <HomeCarousel/>
+      {token ? <UserHomePage/> : <NotUserHomePage/> }
     </div>
   )
 }

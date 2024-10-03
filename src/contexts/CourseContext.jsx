@@ -8,17 +8,17 @@ export const CourseProvider = ({ children }) => {
 
   // 컴포넌트가 처음 렌더링될 때 사용자 정보를 가져오는 함수
   useEffect(() => {
-    const storedCourse = localStorage.getItem(COURSE);
+    const storedCourse = sessionStorage.getItem(COURSE);
     setCourse(storedCourse);
   }, []);
 
   const enterCourse = (courseId) => {
-    localStorage.setItem(COURSE, courseId);
+    sessionStorage.setItem(COURSE, courseId);
     setCourse(courseId);
   };
 
   const exitCourse = () => {
-    localStorage.removeItem(COURSE);
+    sessionStorage.removeItem(COURSE);
     setCourse(null);
   };
 
