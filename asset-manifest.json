@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.cf52e290.css",
-    "main.js": "/static/js/main.879ed14c.js",
-    "static/js/453.6bfd4f0b.chunk.js": "/static/js/453.6bfd4f0b.chunk.js",
-    "static/media/NotoSansKR-Regular.ttf": "/static/media/NotoSansKR-Regular.9bc92a36ed81392f698b.ttf",
-    "static/media/NotoSansKR-Bold.ttf": "/static/media/NotoSansKR-Bold.f064e139058bfd9df2fb.ttf",
-    "static/media/background-home1.png": "/static/media/background-home1.6ec7699a0c16ae87f582.png",
-    "static/media/icon.png": "/static/media/icon.a0d0acc2121a62a6658a.png",
-    "index.html": "/index.html",
-    "main.cf52e290.css.map": "/static/css/main.cf52e290.css.map",
-    "main.879ed14c.js.map": "/static/js/main.879ed14c.js.map",
-    "453.6bfd4f0b.chunk.js.map": "/static/js/453.6bfd4f0b.chunk.js.map"
+    "main.css": "/groupware-front/static/css/main.091c2429.css",
+    "main.js": "/groupware-front/static/js/main.59873767.js",
+    "static/js/453.6bfd4f0b.chunk.js": "/groupware-front/static/js/453.6bfd4f0b.chunk.js",
+    "static/media/NotoSansKR-Regular.ttf": "/groupware-front/static/media/NotoSansKR-Regular.9bc92a36ed81392f698b.ttf",
+    "static/media/NotoSansKR-Bold.ttf": "/groupware-front/static/media/NotoSansKR-Bold.f064e139058bfd9df2fb.ttf",
+    "static/media/background-home1.png": "/groupware-front/static/media/background-home1.6ec7699a0c16ae87f582.png",
+    "static/media/icon.png": "/groupware-front/static/media/icon.a0d0acc2121a62a6658a.png",
+    "index.html": "/groupware-front/index.html",
+    "main.091c2429.css.map": "/groupware-front/static/css/main.091c2429.css.map",
+    "main.59873767.js.map": "/groupware-front/static/js/main.59873767.js.map",
+    "453.6bfd4f0b.chunk.js.map": "/groupware-front/static/js/453.6bfd4f0b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.cf52e290.css",
-    "static/js/main.879ed14c.js"
+    "static/css/main.091c2429.css",
+    "static/js/main.59873767.js"
   ]
 }
