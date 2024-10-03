@@ -23,7 +23,7 @@ const AppNameSpan = styled.span`
     font-weight: 600;
 `;
 
-const Logo = () => {
+const MainLogo = () => {
     const navigate = useNavigate();
   return (
     <LogoContainer onClick={() => navigate(ROUTES.HOME)}>
@@ -39,4 +39,4 @@ const Logo = () => {
   )
 }
 
-export default Logo
+export default MainLogo

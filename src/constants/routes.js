@@ -1,5 +1,5 @@
 export const ROUTES = {
     "HOME": '/',
-    "LOGIN": '/login',
-    "SIGNUP": '/signup'
+    "LOGIN": '/groupware-front/login',
+    "SIGNUP": '/groupware-front/signup'
 }
