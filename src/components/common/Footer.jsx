@@ -21,11 +21,11 @@ const Footer = () => {
     <StyledFooter>
       <span>1팀</span>
       <div>
-        <span>김민우 </span>
-        <span>류희수</span>
-        <span>박상혁</span>
-        <span>이준호</span>
-        <span>조믿음</span>
+        {/* <span>김민우</span> */}
+        {/* <span>류희수</span> */}
+        {/* <span>박상혁</span> */}
+        {/* <span>이준호</span> */}
+        {/* <span>조믿음</span> */}
       </div>
     </StyledFooter>
   )

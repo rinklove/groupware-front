@@ -1,7 +1,8 @@
 import React from 'react'
 import UserContainer from './user/UserContainer'
 import styled from 'styled-components';
-import Logo from './logo/Logo';
+import MainLogo from './logo/MainLogo';
+
 
 const StyledHeader = styled.div`
     display: flex;
@@ -15,7 +16,7 @@ const StyledHeader = styled.div`
 const Header = () => {
   return (
     <StyledHeader>
-      <Logo/>
+      <MainLogo/>
       <UserContainer/>
     </StyledHeader>
   )
