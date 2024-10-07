@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import UserContainer from './user/UserContainer'
 import styled from 'styled-components';
 import MainLogo from './logo/MainLogo';
+import MenuOffCanvas from './menu/MenuOffCanvas';
 
 
 const StyledHeader = styled.div`
@@ -21,10 +22,19 @@ const StyledHeader = styled.div`
 `;
 
 const Header = () => {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const toggleShow = () => setShow((s) => !s);
+
   return (
     <StyledHeader>
+      <MenuOffCanvas
+        onhide={handleClose}
+        show={show}
+        toggleShow={toggleShow}
+      />
       <MainLogo/>
-      <UserContainer/>
+      <UserContainer toggleShow={toggleShow}/>
     </StyledHeader>
   )
 }

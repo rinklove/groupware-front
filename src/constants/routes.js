@@ -2,7 +2,17 @@ export const BASIC_ROUTE = '/groupware-front'
 export const ROUTES = {
     "HOME": '/',
     "LOGIN": '/login',
-    "SIGNUP": '/signup',
+    "EDIT": '/edit',
+    "TEAM": '/team',
+    "CHAT": '/chat', 
+    "NOTICE": '/notice',
+    "STUDY": '/study',
+
     "ADMIN": '/admin',
-    "ADMIN_MAIN": '/main'
+    "MAIN": '/main',
+
+    "COURSE": '/course',
+    "NEW": '/new',
+    "INVITE": '/invite',
+    "WEEDING": '/weeding'
 }

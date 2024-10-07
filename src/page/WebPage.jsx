@@ -4,7 +4,7 @@ import Header from '../components/navbar/Header'
 import { ROUTES } from '../constants/routes'
 import Home from './Home'
 import LoginPage from './LoginPage'
-import SignupPage from './SignupPage'
+import EditPage from './EditPage'
 import Footer from '../components/common/Footer'
 import styled from 'styled-components'
 import AdminPage from './admin/AdminPage'
@@ -12,10 +12,9 @@ import AdminPage from './admin/AdminPage'
 const StyledDiv = styled.div`
   
   & > div:nth-child(2) {
-    min-height: 60vh;
+    min-height: 70vh;
   }
 `;
-
 
 const WebPage = () => {
   return (
@@ -24,8 +23,8 @@ const WebPage = () => {
       <Routes>
         <Route path={ROUTES.HOME} element={<Home/>}/>
         <Route path={ROUTES.LOGIN} element={<LoginPage/>}/>
-        <Route path={ROUTES.SIGNUP} element={<SignupPage/>}/>
-        <Route path={ROUTES.ADMIN_MAIN} element={<AdminPage/>}/>
+        <Route path={ROUTES.EDIT} element={<EditPage/>}/>
+        <Route path={`${ROUTES.ADMIN}/*`} element={<AdminPage/>}/>
       </Routes>
       <Footer/>
     </StyledDiv>

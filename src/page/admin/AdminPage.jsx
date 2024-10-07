@@ -2,14 +2,16 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { ROUTES } from '../../constants/routes'
 import MainPage from './MainPage'
+import CoursePage from './CoursePage'
 
 const AdminPage = () => {
   return (
-    <div>
+    <>
       <Routes>
-        <Route path={ROUTES.ADMIN_MAIN} element={<MainPage/>}/>
+        <Route path={ROUTES.MAIN} element={<MainPage/>}/>
+        <Route path={ROUTES.COURSE} element={<CoursePage/>}/>
       </Routes>
-    </div>
+    </>
   )
 }
 

@@ -1,17 +1,20 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import WebPage from './page/WebPage';
 import { TokenProvider } from './contexts/TokenContext';
 import { CourseProvider } from './contexts/CourseContext';
 import { TeamProvider } from './contexts/TeamContext';
+import { ROUTES } from './constants/routes';
 
 function App() {
   return (
     <TokenProvider>
       <CourseProvider>
         <TeamProvider>
-          <BrowserRouter basename='/groupware-front'>
-            <WebPage/>
+          <BrowserRouter basename={process.env.PUBLIC_URL}>
+            <Routes>
+              <Route path={`/*`} element={<WebPage/>}/>
+            </Routes>
           </BrowserRouter>
         </TeamProvider>
       </CourseProvider>

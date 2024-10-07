@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ChatContainer = () => {
+const CalenderContainer = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const ChatContainer = () => {
   )
 }
 
-export default ChatContainer
+export default CalenderContainer

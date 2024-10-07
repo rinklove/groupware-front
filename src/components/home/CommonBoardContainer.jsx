@@ -5,17 +5,17 @@ const StyledDiv = styled.div`
     width: 60vw;
 `;
 
-const TeamContainer = () => {
+const CommonBoardContainer = () => {
 
   useEffect(() => {
-    //팀정보를 받아와. 
+    //게시글을 받아와.
   }, []);
   
   return (
     <StyledDiv>
-        {/* <TeamInfoNav/> */}
+        
     </StyledDiv>
   )
 }
 
-export default TeamContainer
+export default CommonBoardContainer;

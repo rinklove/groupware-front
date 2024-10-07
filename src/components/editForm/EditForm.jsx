@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CustomInput from '../common/CustomInput'
 import { Table } from 'react-bootstrap'
 import { Form } from 'react-bootstrap'; 
@@ -25,11 +25,17 @@ const StyledCustomButton = styled(CustomButton)`
     border: none; /* 테두리 없애기 */
 `;
 
-const SignupForm = () => {
+const EditForm = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
+
+    useEffect(() => {
+        const getUserData = () => {
+            
+        }
+    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault(); // 기본 폼 제출 이벤트 방지
@@ -37,7 +43,7 @@ const SignupForm = () => {
 
   return (
     <FormContainer>
-        <h3>회원가입</h3>
+        <h3>회원 정보 수정</h3>
         <Form onSubmit={handleSubmit}>
             <Table borderless>
                 <tbody>
@@ -113,4 +119,4 @@ const SignupForm = () => {
   )
 }
 
-export default SignupForm
+export default EditForm

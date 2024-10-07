@@ -22,12 +22,12 @@ const StyledFooter = styled.footer`
 const Footer = () => {
   return (
     <StyledFooter>
-      <CustomButton
+      {/* <CustomButton
         variant='link'
         href={`${BASIC_ROUTE}${ROUTES.ADMIN}${ROUTES.ADMIN_MAIN}`}
         innerText='관리자용 페이지'
         color='#ffffff'
-      />
+      /> */}
     </StyledFooter>
   )
 }

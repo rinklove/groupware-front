@@ -28,6 +28,7 @@ const CustomButton = ({variant, href, innerText, onClick, type, width, color}) =
             onClick={onClick}
             type={type}
             width={width}
+            color={color}
         >
           {innerText}
         </StyledButton>
