@@ -9,7 +9,7 @@ const AdminPage = () => {
     <>
       <Routes>
         <Route path={ROUTES.MAIN} element={<MainPage/>}/>
-        <Route path={ROUTES.COURSE} element={<CoursePage/>}/>
+        <Route path={`${ROUTES.COURSE}/*`} element={<CoursePage/>}/>
       </Routes>
     </>
   )

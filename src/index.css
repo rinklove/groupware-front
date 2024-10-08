@@ -10,6 +10,8 @@
 
 body {
   color: #0f1317;
+  height: 100%;
+  padding: 0;
   margin: 0;
   font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -22,5 +24,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+html, #root {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
 
 

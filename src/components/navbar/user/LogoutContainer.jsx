@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import CustomButton  from '../../common/CustomButton'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styled from 'styled-components';
 import { BASIC_ROUTE, ROUTES } from '../../../constants/routes';
+import { TokenContext } from '../../../contexts/TokenContext';
+import { logout } from '../../../api/auth';
+import { useNavigate } from 'react-router-dom';
 
 const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
     font-size: 1.5em; // 아이콘 크기 설정
@@ -11,6 +14,27 @@ const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
 `;
 
 const LogoutContainer = ({toggleShow}) => {
+  const { removeToken } = useContext(TokenContext);
+  const [isFetching, setIsFetching] = useState(false);
+  const navigate = useNavigate()
+  const handleLogout = async () => {
+    if(isFetching) {
+      alert(`잠시만 기디려주세요`);
+    }
+    setIsFetching(true);
+    try {
+      const res = await logout();
+      console.log(res);
+      removeToken();
+      alert('로그아웃 완료')
+      navigate(ROUTES.HOME);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIsFetching(false);
+    }
+  }
+
   return (
     <>
       <CustomButton

@@ -21,7 +21,7 @@ const StyledCard = styled(Card)`
     }
 `;
 
-const CustomCard = ({title, subTitle, innerText, href, hrefText, width}) => {
+const CustomCard = ({title, subTitle, innerText, href, hrefText, width, children}) => {
   return (
     <StyledCard style={{ width: width }}>
       <Card.Body>
@@ -30,7 +30,8 @@ const CustomCard = ({title, subTitle, innerText, href, hrefText, width}) => {
         <Card.Text>
           {innerText}
         </Card.Text>
-        <Card.Link href={href}>{hrefText}</Card.Link>
+        {href ? <Card.Link href={href}>{hrefText}</Card.Link> : null}
+        {children}
       </Card.Body>
     </StyledCard>
   )

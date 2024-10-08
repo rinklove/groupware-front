@@ -3,6 +3,7 @@ import CustomCard from '../../common/CustomCard'
 import { BASIC_ROUTE, ROUTES } from '../../../constants/routes'
 import { Col, Container, Row } from 'react-bootstrap'
 import styled from 'styled-components';
+import CreateForm from '../course/CreateForm';
 
 const StyledDiv = styled(Container)`
   margin-top: 3em;
@@ -25,10 +26,10 @@ const MainContainer = () => {
             <CustomCard
               title='코스 생성하기'
               innerText='수강생들을 등록하기 위한 코스 생성'
-              href={`${BASIC_ROUTE}${ROUTES.ADMIN}${ROUTES.COURSE}${ROUTES.NEW}`}
-              hrefText='코스 생성하러 이동하기'
               width='100%'
-            />
+            >
+              <CreateForm/>
+            </CustomCard>
           </Col>
           <Col xs={12} md={12} lg={4}>
             <CustomCard

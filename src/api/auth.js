@@ -1,4 +1,4 @@
-import { LOGIN,SIGNUP } from './url';
+import { LOGIN,LOGOUT,SIGNUP } from './url';
 import { post } from './instance';
 
 export const login = async (data) => {
@@ -9,5 +9,10 @@ export const login = async (data) => {
 
 export const signup = async (data) => {
     const res = await post(SIGNUP, JSON.stringify(data));
+    return res;
+}
+
+export const logout = async () => {
+    const res = await post(LOGOUT, null);
     return res;
 }

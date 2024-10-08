@@ -65,7 +65,7 @@ const LoginForm = () => {
                 <Table borderless>
                     <tbody>
                         <tr>
-                            <td>아이디</td>
+                            <td valign='middle' align='center'>아이디</td>
                             <td>
                                 <CustomInput
                                     id='username'
@@ -78,7 +78,7 @@ const LoginForm = () => {
                             </td>
                         </tr>
                         <tr>
-                            <td>비밀번호</td>
+                            <td valign='middle' align='center'>비밀번호</td>
                             <td>
                                 <CustomInput
                                     id='password'

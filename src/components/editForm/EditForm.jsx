@@ -12,7 +12,7 @@ import CustomButton from '../common/CustomButton';
 const FormContainer = styled.div`
     margin: auto;
     margin-top: 10em;
-    width: 30vw;
+    width: 40vw;
 
     & > h3 {
         font-weight: 600;
@@ -25,6 +25,7 @@ const StyledCustomButton = styled(CustomButton)`
     border: none; /* 테두리 없애기 */
 `;
 
+
 const EditForm = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -33,7 +34,7 @@ const EditForm = () => {
 
     useEffect(() => {
         const getUserData = () => {
-            
+
         }
     }, []);
 
@@ -48,7 +49,7 @@ const EditForm = () => {
             <Table borderless>
                 <tbody>
                     <tr>
-                        <td>아이디</td>
+                        <td valign='middle' align='center'>아이디</td>
                         <td>
                             <CustomInput
                                 id='username'
@@ -62,7 +63,7 @@ const EditForm = () => {
                         </td>
                     </tr>
                     <tr>
-                        <td>비밀번호</td>
+                        <td valign='middle' align='center'>비밀번호</td>
                         <td>
                             <CustomInput
                                 id='password'
@@ -76,7 +77,7 @@ const EditForm = () => {
                         </td>
                     </tr>
                     <tr>
-                        <td>이름</td>
+                        <td valign='middle' align='center'>이름</td>
                         <td>
                             <CustomInput
                                 id='name'
@@ -89,7 +90,7 @@ const EditForm = () => {
                         </td>
                     </tr>
                     <tr>
-                        <td>이메일</td>
+                        <td valign='middle' align='center'>이메일</td>
                         <td>
                             <CustomInput
                                 id='email'
