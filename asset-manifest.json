@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/groupware-front/static/static/css/main.185de9ab.css",
-    "main.js": "/groupware-front/static/static/js/main.f20769df.js",
-    "static/js/453.6bfd4f0b.chunk.js": "/groupware-front/static/static/js/453.6bfd4f0b.chunk.js",
-    "static/media/NotoSansKR-Regular.ttf": "/groupware-front/static/static/media/NotoSansKR-Regular.9bc92a36ed81392f698b.ttf",
-    "static/media/NotoSansKR-Bold.ttf": "/groupware-front/static/static/media/NotoSansKR-Bold.f064e139058bfd9df2fb.ttf",
-    "static/media/background-home1.png": "/groupware-front/static/static/media/background-home1.6ec7699a0c16ae87f582.png",
-    "static/media/icon.png": "/groupware-front/static/static/media/icon.a0d0acc2121a62a6658a.png",
-    "index.html": "/groupware-front/static/index.html",
-    "main.185de9ab.css.map": "/groupware-front/static/static/css/main.185de9ab.css.map",
-    "main.f20769df.js.map": "/groupware-front/static/static/js/main.f20769df.js.map",
-    "453.6bfd4f0b.chunk.js.map": "/groupware-front/static/static/js/453.6bfd4f0b.chunk.js.map"
+    "main.css": "/groupware-front/groupware-front/static/css/main.ddf3a134.css",
+    "main.js": "/groupware-front/groupware-front/static/js/main.d38bef61.js",
+    "static/js/453.6bfd4f0b.chunk.js": "/groupware-front/groupware-front/static/js/453.6bfd4f0b.chunk.js",
+    "static/media/NotoSansKR-Regular.ttf": "/groupware-front/groupware-front/static/media/NotoSansKR-Regular.9bc92a36ed81392f698b.ttf",
+    "static/media/NotoSansKR-Bold.ttf": "/groupware-front/groupware-front/static/media/NotoSansKR-Bold.f064e139058bfd9df2fb.ttf",
+    "static/media/background-home1.png": "/groupware-front/groupware-front/static/media/background-home1.6ec7699a0c16ae87f582.png",
+    "static/media/icon.png": "/groupware-front/groupware-front/static/media/icon.a0d0acc2121a62a6658a.png",
+    "index.html": "/groupware-front/groupware-front/index.html",
+    "main.ddf3a134.css.map": "/groupware-front/groupware-front/static/css/main.ddf3a134.css.map",
+    "main.d38bef61.js.map": "/groupware-front/groupware-front/static/js/main.d38bef61.js.map",
+    "453.6bfd4f0b.chunk.js.map": "/groupware-front/groupware-front/static/js/453.6bfd4f0b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.185de9ab.css",
-    "static/js/main.f20769df.js"
+    "static/css/main.ddf3a134.css",
+    "static/js/main.d38bef61.js"
   ]
 }
