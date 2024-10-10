@@ -4,10 +4,10 @@ import { Table } from 'react-bootstrap'
 import { Form } from 'react-bootstrap'; 
 import styled from 'styled-components';
 import { 
-    USERNAME_CONSTRAINTS, 
     PASSWORD_CONSTRAINTS 
 } from '../../constants/SignupConstraints';
 import CustomButton from '../common/CustomButton';
+import { getMyPage } from '../../api/auth';
 
 const FormContainer = styled.div`
     margin: auto;
@@ -27,15 +27,25 @@ const StyledCustomButton = styled(CustomButton)`
 
 
 const EditForm = () => {
+    const [courseName, setCourseName] = useState('');
     const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
 
     useEffect(() => {
-        const getUserData = () => {
-
+        const getUserData = async () => {
+            try {
+                const {result} = await getMyPage();
+                setCourseName(result.courseName);
+                setUsername(result.username);
+                setName(result.name);
+                setEmail(result.email);
+            } catch (e) {
+                console.error(e);
+            }
         }
+
+        getUserData();
     }, []);
 
     const handleSubmit = (e) => {
@@ -49,30 +59,26 @@ const EditForm = () => {
             <Table borderless>
                 <tbody>
                     <tr>
+                        <td valign='middle' align='center'>진행중인 코스</td>
+                        <td>
+                            <CustomInput
+                                id='courseName'
+                                type='text'
+                                value={courseName}
+                                onChange={(e) => setCourseName(e.target.value)}
+                                disabled={true}
+                            />
+                        </td>
+                    </tr>
+                    <tr>
                         <td valign='middle' align='center'>아이디</td>
                         <td>
                             <CustomInput
                                 id='username'
                                 type='text'
-                                isShow={true}
-                                instructions={USERNAME_CONSTRAINTS}
                                 placeholder='아이디를 입력하세요'
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td valign='middle' align='center'>비밀번호</td>
-                        <td>
-                            <CustomInput
-                                id='password'
-                                type='password'
-                                isShow={true}
-                                instructions={PASSWORD_CONSTRAINTS}
-                                placeholder='비밀번호를 입력하세요'
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
                             />
                         </td>
                     </tr>
@@ -107,7 +113,7 @@ const EditForm = () => {
                             <StyledCustomButton
                                 variant='primary'
                                 type='submit' // 'submit'으로 두면 onSubmit에서 처리됨
-                                innerText='회원가입'
+                                innerText='회원정보 수정'
                                 color='#ffffff'
                                 width='100%'
                             />

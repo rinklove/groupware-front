@@ -3,7 +3,7 @@ import { Card } from 'react-bootstrap';
 import styled from 'styled-components';
 
 const StyledCard = styled(Card)`
-
+    margin: 0.5em;
     & .card-title {
         font-weight: 700;
         font-size: 1.3em;

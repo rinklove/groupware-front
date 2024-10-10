@@ -1,7 +1,7 @@
 import React from 'react'
 import Form from 'react-bootstrap/Form';
 
-const CustomInput = ({id, type, placeholder, isShow, instructions, value, onChange}) => {
+const CustomInput = ({id, type, placeholder, isShow, instructions, value, onChange, disabled}) => {
   return (
     <div>
       <Form.Control
@@ -12,6 +12,7 @@ const CustomInput = ({id, type, placeholder, isShow, instructions, value, onChan
         placeholder={placeholder}
         onChange={onChange}
         aria-describedby="passwordHelpBlock"
+        disabled={disabled}
       />
       {
         isShow && 

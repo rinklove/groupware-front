@@ -21,90 +21,49 @@ const ItemDiv = styled.div`
 `;
 
 const BoardList = ({data, width, title}) => {
+
+  const moveToDetailPage = (id) => {
+
+  }
   return (
     <StyledDiv width={width}>
       <h4>{title}</h4>
       <ListGroup>
-        <ListGroup.Item
-          as="li"
-          className="d-flex justify-content-between align-items-center"
-          action variant="light"
-        >
-          <div className="ms-2 me-auto fw-bold">
-            제목제목제목
-          </div>
-          <ItemDiv>
-            <span className='fw-bolde'>작성자</span>
-            <span>2024년 10월 8일 14:33</span>
-            <Badge bg="primary" className='mx-3' pill>
-              조회수 14
-            </Badge>
-          </ItemDiv>
-        </ListGroup.Item>
-        <ListGroup.Item
-          as="li"
-          className="d-flex justify-content-between align-items-start"
-          action variant="light"
-        >
-          <div className="ms-2 me-auto fw-bold">
-            제목제목제목
-          </div>
-          <ItemDiv>
-            <span className='fw-bolde'>작성자</span>
-            <span>2024년 10월 8일 14:33</span>
-            <Badge bg="primary" className='mx-3' pill>
-              조회수 14
-            </Badge>
-          </ItemDiv>
-        </ListGroup.Item>
-        <ListGroup.Item
-          as="li"
-          className="d-flex justify-content-between align-items-start"
-          action variant="light"
-        >
-          <div className="ms-2 me-auto fw-bold">
-            제목제목제목
-          </div>
-          <ItemDiv>
-            <span className='fw-bolde'>작성자</span>
-            <span>2024년 10월 8일 14:33</span>
-            <Badge bg="primary" className='mx-3' pill>
-              조회수 14
-            </Badge>
-          </ItemDiv>
-        </ListGroup.Item>
-        <ListGroup.Item
-          as="li"
-          className="d-flex justify-content-between align-items-start"
-          action variant="light"
-        >
-          <div className="ms-2 me-auto fw-bold">
-            제목제목제목
-          </div>
-          <ItemDiv>
-            <span className='fw-bolde'>작성자</span>
-            <span>2024년 10월 8일 14:33</span>
-            <Badge bg="primary" className='mx-3' pill>
-              조회수 14
-            </Badge>
-          </ItemDiv>
-        </ListGroup.Item>
-        <ListGroup.Item
-          as="li"
-          className="d-flex justify-content-between align-items-start"
-          action variant="light"
-        >
-          <div className="ms-2 me-auto fw-bold">
-            제목제목제목
-          </div>
-          <ItemDiv>
-            <span className='fw-bolde'>작성자</span>
-            <span>2024년 10월 8일 14:33</span>
-            <Badge bg="primary" className='mx-3' pill>
-              조회수 14
-            </Badge>
-          </ItemDiv>
-        </ListGroup.Item>
+        {
+          data.length > 0 ?
+          data.map((item) => 
+            <ListGroup.Item
+              as="li"
+              className="d-flex justify-content-between align-items-center"
+              action variant="light"
+              key={item.id}
+              onClick={() => moveToDetailPage(item.id)}
+            >
+              <div className="ms-2 me-auto fw-bold">
+                {item.title}
+              </div>
+              <ItemDiv>
+                <span className='fw-bolde'>{item.writer}</span>
+                <span>{item.createdAt}</span>
+                <Badge bg="primary" className='mx-3' pill>
+                  조회수 {item.readCount}
+                </Badge>
+                {
+                  item.commentCount ? 
+                  <Badge bg="primary" className='mx-3' pill>
+                    댓글 {item.commentCount}개
+                  </Badge>
+                  : null
+                }
+              </ItemDiv>
+            </ListGroup.Item>
+          ) :
+          <ListGroup.Item
+            className="d-flex justify-content-between align-items-center"
+          >
+            <span>{title}이 없습니다</span>
+          </ListGroup.Item> 
+        }
       </ListGroup>
     </StyledDiv>
   )

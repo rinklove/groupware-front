@@ -40,7 +40,7 @@ const LogoutContainer = ({toggleShow}) => {
       <CustomButton
         variant='link'
         innerText='로그아웃'
-        onclick={() => console.log(`로그아웃 함수 넣어야 함`)}
+        onClick={handleLogout}
       />
       <CustomButton
         variant='link'

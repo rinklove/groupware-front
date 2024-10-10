@@ -3,6 +3,8 @@ import { Form, Table } from 'react-bootstrap';
 import styled from 'styled-components';
 import CustomInput from '../../common/CustomInput';
 import CustomButton from '../../common/CustomButton';
+import { addCourse } from '../../../api/course';
+import { STATUS } from '../../../constants/errorCode';
 
 const FormContainer = styled.div`
   margin: auto;
@@ -14,8 +16,32 @@ const StyledCustomButton = styled(CustomButton)`
 `;
 const CreateForm = () => {
   const [courseName, setCourseName] = useState('');
-  const handleSubmit = (e) => {
+  const [isFetching, setFatching] = useState(false);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if(isFetching) {
+        alert('잠시만 기다려주세요.');
+        return;
+    }
+    try{
+        setFatching(true);
+
+        const data = {
+            "name": courseName
+        }
+        const res = await addCourse(data); 
+        if(res.status !== STATUS.CREATED) {
+            throw res;
+        }
+        alert('코스 등록 성공');
+        setCourseName('');
+    } catch (e) {
+        alert('코스 동록 실패');
+        console.error(e);
+    } finally {
+        setFatching(false);
+    }
   }
 
   return (

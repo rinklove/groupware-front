@@ -19,12 +19,15 @@ const CourseBoardContainer = () => {
     // 게시글을 받아오는 로직
     const getData = async () => {
       try {
-        const res = await getCourseBoardMain();
-        console.log(res);
+        const {data} = await getCourseBoardMain();
+        setNotices(data.result.notices);
+        setStudies(data.result.studies);
       } catch (e) {
         console.error(e);
       }
     }
+
+    getData();
   }, []);
   
   return (
@@ -38,7 +41,7 @@ const CourseBoardContainer = () => {
       <StyledDiv>
         <BoardList
             data={studies}
-            title='학습 자료' // 리스트 제목 추가
+            title='스터디 모집' 
           />
       </StyledDiv>
     </>

@@ -47,3 +47,16 @@ export const post = async (url, data) => {
         return error.response;
     }
 }
+
+//PATCH 요청 함수
+export const patch = async (url, data) => {
+    try {
+        const res = await basicRequest.patch(url, data);
+        console.log(`PATCH 응답 결과(res.data):`, res.data); // 응답 데이터 출력
+        return res; 
+    } catch (error) {
+        // 에러 핸들링: 응답이 있을 경우, 응답 데이터를 출력
+        console.error(`POST 요청 에러:`, error.response ? error.response.data : error.message);
+        return error.response;
+    }
+}

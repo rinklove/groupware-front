@@ -14,7 +14,7 @@ const ScheduleDiv = styled.div`
 const ScheduleList = ({data, width}) => {
   return (
     <ScheduleDiv width={width} className='overflow-auto'>
-      <h4>일정 목록</h4>
+      <h5>일정 목록</h5>
       <ListGroup>
         <ListGroup.Item>
           <h5>10/11 ~ 10/24</h5>

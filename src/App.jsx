@@ -4,7 +4,6 @@ import WebPage from './page/WebPage';
 import { TokenProvider } from './contexts/TokenContext';
 import { CourseProvider } from './contexts/CourseContext';
 import { TeamProvider } from './contexts/TeamContext';
-import { ROUTES } from './constants/routes';
 
 function App() {
   return (
@@ -13,7 +12,7 @@ function App() {
         <TeamProvider>
           <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Routes>
-              <Route path={`/*`} element={<WebPage/>}/>
+              <Route path='/*' element={<WebPage/>}/>
             </Routes>
           </BrowserRouter>
         </TeamProvider>

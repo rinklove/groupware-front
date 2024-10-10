@@ -31,15 +31,14 @@ const UserHomePage = () => {
             <CalenderContainer />
           </StyledCol>
         </Row>
-        <Row>
-          {/* 두 번째 줄: 팀 목록과 채팅방 */}
+        {/* <Row>
           <StyledCol md={12} xl={5}>
             <CourseBoardContainer />
           </StyledCol>
           <StyledCol md={12} xl={7}>
             <CalenderContainer />
           </StyledCol>
-        </Row>
+        </Row> */}
       </Container>
     </ContainerDiv>
   );
