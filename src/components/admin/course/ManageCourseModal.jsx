@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Form, Modal, Table } from 'react-bootstrap'
-import { getAllCourse, updateCourse } from '../../../api/course';
+import { fetchAllCourse, updateCourse } from '../../../api/course';
 import styled from 'styled-components';
 import { STATUS } from '../../../constants/errorCode';
 
@@ -26,9 +26,9 @@ const ManageCourseModal = ({show, handleClose}) => {
 
   const getFetchData = async () => {
     try {
-      const { data } = await getAllCourse();
-      console.log(data.result);
-      setCourses(data.result);
+      const res = await fetchAllCourse();
+      console.log(res.result);
+      setCourses(res.result);
     } catch (e) {
       console.error(e);
     }

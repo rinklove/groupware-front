@@ -4,11 +4,12 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Badge, Form } from 'react-bootstrap';
 import CustomButton from '../../common/CustomButton';
-import { getAllCourse } from '../../../api/course';
+import { fetchAllCourse } from '../../../api/course';
 import styled from 'styled-components';
 import { EMAIL_REGEX } from '../../../constants/auth';
 import { sendSignupForm } from '../../../api/auth';
 import { STATUS } from '../../../constants/errorCode';
+import CourseSelect from './\bCourseSelect';
 
 const StyledContainer = styled(Container)`
   width: 80%;
@@ -62,21 +63,19 @@ const InviteForm = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const res = await getAllCourse();
-        if (res.status !== STATUS.OK) {
-          throw res;
-        }
+        const res = await fetchAllCourse();
         console.log(res.data);
         setCourse(res.data.result);
       } catch (e) {
         console.error(e);
       }
     };
-    fetchCourses();
+
+  	fetchCourses();
   }, []);
 
-  const changeCourse = (value) => {
-    const selectedCourseId = parseInt(value, 10);  // 문자열을 숫자로 변환
+	const changeCourse = (value) => {
+    const selectedCourseId = parseInt(value, 10); // 문자열을 숫자로 변환
     if (!initialLoad && emails.length > 0 && courseId !== selectedCourseId) {
       const shouldClearEmails = window.confirm(
         '코스명을 바꾸면 기존에 추가했던 이메일은 사라집니다. 계속하시겠습니까?'
@@ -87,7 +86,7 @@ const InviteForm = () => {
       }
     } else {
       setCourseId(selectedCourseId);
-      setInitialLoad(false); // 첫 로드 이후로 false 설정
+      setInitialLoad(false);
     }
   };
 
@@ -126,11 +125,6 @@ const InviteForm = () => {
     try {
       setFetching(true);
       const res = await sendSignupForm({courseId, emails});
-
-      if (res.status !== STATUS.OK) {
-        throw res;
-      }
-
       alert('회원가입 폼 전송 되었습니다.');
     } catch (e) {
       alert('회원가입 폼 전송 실패');
@@ -146,23 +140,11 @@ const InviteForm = () => {
         <StyledRow>
           <h5 className="fw-bold">이메일 추가</h5>
           <Col md={5} xl={4}>
-            <Form.Select
-              onChange={(e) => changeCourse(e.target.value)}
-              value={courseId || 0}
-            >
-              {course.length > 0 ? (
-                <>
-                  <option value={0}>코스를 선택해주세요</option>
-                  {course.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.name}
-                    </option>
-                  ))}
-                </>
-              ) : (
-                <option>코스가 없습니다.</option>
-              )}
-            </Form.Select>
+						<CourseSelect
+							courseId={courseId}
+							course={course}
+							onChange={changeCourse}
+						/>
           </Col>
           <Col md={5} xl={5}>
             <Form.Control

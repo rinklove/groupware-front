@@ -1,8 +1,15 @@
+import { STATUS } from "../constants/errorCode";
 import { get, patch, post } from "./instance";
-import { ALL_COURSE, COURSE_ADMIN } from "./url";
+import { ADMIN, ALL_COURSE, COURSE_ADMIN, USERS } from "./url";
 
 //해당 기수의 사람을 불러오기
-
+export const fetchUsersByCourse = async (courseId) => {
+    const res = await get(`${COURSE_ADMIN}/${courseId}${USERS}`);
+    if(res.status !== STATUS.OK) {
+        throw res;
+    }
+    return res.data;
+}
 
 //코스명 등록
 export const addCourse = async (data) =>{
@@ -11,9 +18,12 @@ export const addCourse = async (data) =>{
 }
 
 //모든 코스명 가져오기
-export const getAllCourse = async () => {
+export const fetchAllCourse = async () => {
     const res = await get(ALL_COURSE);
-    return res;
+    if (res.status !== STATUS.OK) {
+        throw res;
+      }
+    return res.data;
 }
 
 //코스 수정

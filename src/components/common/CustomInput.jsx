@@ -5,6 +5,7 @@ const CustomInput = ({id, type, placeholder, isShow, instructions, value, onChan
   return (
     <div>
       <Form.Control
+        style={{borderColor: '#0f1317'}}
         type={type}
         id={id}
         name={id}

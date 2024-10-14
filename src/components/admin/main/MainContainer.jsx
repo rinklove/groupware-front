@@ -88,7 +88,7 @@ const MainContainer = () => {
             <CustomCard
               title='프로젝트 팀 생성하기'
               innerText='프로젝트 팀을 만들어보세요!'
-              href={`${BASIC_ROUTE}${ROUTES.ADMIN}${ROUTES.COURSE}${ROUTES.INVITE}`}
+              href={`${BASIC_ROUTE}${ROUTES.ADMIN}${ROUTES.COURSE}${ROUTES.TEAM}`}
               hrefText='프로젝트 팀 생성'
               width='100%'
             />

@@ -29,6 +29,7 @@ const StyledCustomButton = styled(CustomButton)`
 const EditForm = () => {
     const [courseName, setCourseName] = useState('');
     const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
 
@@ -76,8 +77,8 @@ const EditForm = () => {
                             <CustomInput
                                 id='username'
                                 type='text'
-                                placeholder='아이디를 입력하세요'
                                 value={username}
+                                disabled={true}
                                 onChange={(e) => setUsername(e.target.value)}
                             />
                         </td>
@@ -88,10 +89,23 @@ const EditForm = () => {
                             <CustomInput
                                 id='name'
                                 type='text'
-                                isShow={false}
                                 placeholder='이름을 입력하세요'
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign='middle' align='center'>비밀번호</td>
+                        <td>
+                            <CustomInput
+                                id='password'
+                                type='password'
+                                isShow={true}
+                                instructions={PASSWORD_CONSTRAINTS}
+                                placeholder='이름을 입력하세요'
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                             />
                         </td>
                     </tr>
@@ -100,11 +114,11 @@ const EditForm = () => {
                         <td>
                             <CustomInput
                                 id='email'
-                                type='email'
-                                isShow={false}
+                                type='email'                                
                                 placeholder='이메일을 입력하세요'
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
+                                disabled={true}
                             />
                         </td>
                     </tr>
