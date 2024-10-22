@@ -29,7 +29,7 @@ const CalendarDiv = styled.div`
   flex: 1; /* 부모의 높이를 동일하게 나누기 위해 flex 사용 */
 `;
 
-const CalenderContainer = () => {
+const CalenderContainer = ({courseId, isAdmin}) => {
   const [value, setValue] = useState(new Date());
   const tileDisabled = () => {
     return false;

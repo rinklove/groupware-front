@@ -23,7 +23,7 @@ export const fetchAllCourse = async () => {
     if (res.status !== STATUS.OK) {
         throw res;
       }
-    return res.data;
+    return res.data.result;
 }
 
 //코스 수정

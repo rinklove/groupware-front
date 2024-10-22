@@ -1,34 +1,62 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import BoardList from '../board/BoardList';
-import { getCourseBoardMain } from '../../api/board';
+import { getCourseBoardForAdmin, getCourseBoardMain } from '../../api/board';
 
 const StyledDiv = styled.div`
-    width: 25vw;
-    display: inline;
-    padding: 2em;
-    margin: 2em;
-    box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  padding: 0.5em;
+  margin: 0.5em;
+  box-sizing: border-box;
+  border: 0.5px solid #0f1317;
+  border-radius: 1em;
 `;
 
-const CourseBoardContainer = () => {
+const CourseBoardContainer = ({courseId, isAdmin}) => {
   const [notices, setNotices] = useState([]);
   const [studies, setStudies] = useState([]);
 
+  const fetchData = async () => {
+    return isAdmin ? 
+      await getCourseBoardForAdmin(courseId) 
+      : 
+      await getCourseBoardMain()
+  }
+
+  const getData = async () => {
+    try { 
+      const res = await fetchData();
+      console.log(res)
+      setNotices(res.notices);
+      setStudies(res.studies);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  const getAdminData = async () => {
+    if(!isAdmin && !courseId) return;
+    try {
+      const res = await getCourseBoardForAdmin(courseId);
+      console.log(res)
+      setNotices(res.notices);
+      setStudies(res.studies);
+    } catch (e) {
+      console.error(e);
+    } 
+  }
+
+
   useEffect(() => {
     // 게시글을 받아오는 로직
-    const getData = async () => {
-      try {
-        const {data} = await getCourseBoardMain();
-        setNotices(data.result.notices);
-        setStudies(data.result.studies);
-      } catch (e) {
-        console.error(e);
-      }
-    }
-
     getData();
   }, []);
+
+  useEffect(() => {
+    // 게시글을 받아오는 로직
+    getAdminData();
+  }, [courseId]);
   
   return (
     <>

@@ -8,6 +8,7 @@ import EditPage from './EditPage'
 import Footer from '../components/common/Footer'
 import styled from 'styled-components'
 import AdminPage from './admin/AdminPage'
+import CoursePage from './course/CoursePage'
 
 const StyledDiv = styled.div`
   
@@ -24,6 +25,7 @@ const WebPage = () => {
         <Route path={ROUTES.HOME} element={<Home/>}/>
         <Route path={ROUTES.LOGIN} element={<LoginPage/>}/>
         <Route path={ROUTES.EDIT} element={<EditPage/>}/>
+        <Route path={`${ROUTES.COURSE}/*`} element={<CoursePage/>}/>
         <Route path={`${ROUTES.ADMIN}/*`} element={<AdminPage/>}/>
       </Routes>
       <Footer/>

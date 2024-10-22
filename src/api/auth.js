@@ -1,4 +1,4 @@
-import { LOGIN,LOGOUT,MY_PAGE,SEND_SIGNUP_FORM,SIGNUP } from './url';
+import { LOGIN,LOGOUT,USER,SEND_SIGNUP_FORM,SIGNUP, ROLE } from './url';
 import { get, post } from './instance';
 import { STATUS } from '../constants/errorCode';
 
@@ -13,6 +13,15 @@ export const login = async (data) => {
 export const signup = async (data) => {
     const res = await post(SIGNUP, JSON.stringify(data));
     return res;
+}
+
+//해당 사용자의 관리자 여부 체크 
+export const getUserRole = async () => {
+    const res = await get(`${USER}${ROLE}`);
+    if(res.status !== STATUS.OK) {
+        throw res;
+    }
+    return res.data.result;
 }
 
 //로그아웃
@@ -33,7 +42,7 @@ export const sendSignupForm = async (data) => {
 
 //마이페이지 데이터 조회
 export const getMyPage = async () => {
-    const res = await get(MY_PAGE);
+    const res = await get(USER);
     if(res.status !== STATUS.OK) {
         throw res;
     }

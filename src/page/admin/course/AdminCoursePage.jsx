@@ -1,12 +1,12 @@
 import React from 'react'
-import { ROUTES } from '../../constants/routes'
-import CreatePage from './course/CreatePage'
+import { ROUTES } from '../../../constants/routes'
 import { Route, Routes } from 'react-router-dom'
-import InvitePage from './course/InvitePage'
-import WeedingPage from './course/WeedingPage'
-import CreateProjectTeamPage from './course/CreateProjectTeamPage'
+import CreatePage from './CreatePage'
+import InvitePage from './InvitePage'
+import WeedingPage from './WeedingPage'
+import CreateProjectTeamPage from './CreateProjectTeamPage'
 
-const CoursePage = () => {
+const AdminCoursePage = () => {
   return (
     <Routes>
         <Route path={ROUTES.NEW} element={<CreatePage/>}/>
@@ -17,4 +17,4 @@ const CoursePage = () => {
   )
 }
 
-export default CoursePage
+export default AdminCoursePage

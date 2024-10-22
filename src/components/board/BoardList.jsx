@@ -7,10 +7,13 @@ const StyledDiv = styled.div`
   width: ${({width}) => ( width || '100%')};
   
   & > h4 {
-    background-color: #66d9f4;
     margin: 0 0.5em;
     margin-bottom: 0.5em;
     padding: 0.3em 0.5em;
+  }
+
+  & li.list-group-item:hover {
+    cursor: pointer;
   }
 `;
 
@@ -30,7 +33,7 @@ const BoardList = ({data, width, title}) => {
       <h4>{title}</h4>
       <ListGroup>
         {
-          data.length > 0 ?
+          data?.length > 0 ?
           data.map((item) => 
             <ListGroup.Item
               as="li"

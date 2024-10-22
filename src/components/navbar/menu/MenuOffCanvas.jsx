@@ -7,19 +7,19 @@ import { BASIC_ROUTE, ROUTES } from '../../../constants/routes';
 
 const options = [
   {
-    name: 'Enable both scrolling & backdrop',
+    name: 'Enable body scrolling',
     scroll: true,
     backdrop: true,
   },
 ];
 
 const CustomOffcanvas = styled(Offcanvas)`
-    background-color: #212529; /* 원하는 배경색으로 변경 */
-    color: #fff; /* 텍스트 색상 변경 */
+  background-color: #1A2333; /* 원하는 배경색으로 변경 */
+  color: #fff; /* 텍스트 색상 변경 */
 `;
 
 const CustomOffcanvasHeader = styled(Offcanvas.Header)`
-    background-color: #212529; /* 헤더 배경색 변경 */
+    background-color: #1A2333; /* 헤더 배경색 변경 */
     color: #fff; /* 헤더 텍스트 색상 변경 */
 
     .btn-close {
@@ -32,7 +32,8 @@ const CustomNav = styled(Nav)`
     .nav-link {
         color: #fff;
         &:hover {
-            color: #adb5bd; /* 호버 시 색상 변경 */
+            color: #1A2333; /* 호버 시 색상 변경 */
+            background-color: #adb5bd;
         }
     }
 `;
@@ -41,7 +42,7 @@ const MenuOffCanvas = ({ onhide, show, toggleShow, ...props }) => {
   
   return (
     <>
-      <CustomOffcanvas 
+      <CustomOffcanvas
         show={show} 
         onHide={onhide} 
 				scroll={options[0].scroll} // 스크롤 옵션 적용

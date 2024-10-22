@@ -14,5 +14,8 @@ export const ROUTES = {
     "COURSE": '/course',
     "NEW": '/new',
     "INVITE": '/invite',
-    "WEEDING": '/weeding'
+    "WEEDING": '/weeding',
+
+    "BOARD": '/board',
+    "LIST": '/list'
 }

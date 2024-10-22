@@ -8,6 +8,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import CourseUserContainer from './CourseUserContainer';
 import CourseSelect from '../course/\bCourseSelect';
+import CustomButton from '../../common/CustomButton';
 
 const StyledContainer = styled(Container)`
   margin-top: 3em;
@@ -160,6 +161,27 @@ const ProjectTeamContainer = () => {
     return users.filter((user) => !existingUsers.some((existingUser) => existingUser.id === user.id));
   };
 
+  const requestTeamCreation = () => {
+    //각 팀에 있는 데이터의 번호를 모아.
+    if(commonName === '') {
+      alert('공통 팀 이름을 작성해주세요.')
+    }
+
+    const data = {
+      commonName,
+      "teams": []
+    };
+    
+    droppedContainers.map((container,index) => {
+      const teamName = `${index+1}팀`
+      const members = container.users.map(user => user.id);
+      data.teams = [...data.teams, {teamName, members}];
+    })
+    
+    //점심 나갈거 같았어
+    // console.log(`data`, data);
+  }
+
   return (
     <DndProvider backend={HTML5Backend}>
       <StyledContainer>
@@ -174,6 +196,7 @@ const ProjectTeamContainer = () => {
               droppedContainers={droppedContainers}
               returnUser={returnUser}
               removeContainer={removeContainer}
+              create={requestTeamCreation}
             />
           </>
         )}
@@ -209,32 +232,46 @@ const ProjectTeamName = ({ commonName, setCommonName }) => (
   </Row>
 );
 
-const UserManagement = ({ toSelectUsers, dropUser, addContainer, droppedContainers, returnUser, removeContainer }) => (
-  <>
-    <Row>
-      <CreateTeamCol xs={12} md={12} xl={12}>
-        <span>수강생 리스트</span>
-        <Button variant="success" onClick={addContainer}>
-          팀 추가
-        </Button>
-      </CreateTeamCol>
-      <CourseUserContainer data={toSelectUsers} dropUser={dropUser} />
-    </Row>
-    <Row>
-      {droppedContainers.map((container, index) => (
-        <TeamCol key={container.id} xs={12} md={6} xl={4}>
-          <DroppedUsersContainer
-            index={index+1}
-            containerId={container.id}
-            droppedUsers={container.users}
-            dropUser={dropUser}
-            returnUser={returnUser}
-            removeContainer={() => removeContainer(container.id)}
+const UserManagement = ({ toSelectUsers, dropUser, addContainer, droppedContainers, returnUser, removeContainer, create }) => 
+    <>
+      <Row>
+        <CreateTeamCol xs={12} md={12} xl={12}>
+          <span>수강생 리스트</span>
+          <Button variant="success" onClick={addContainer}>
+            팀 추가
+          </Button>
+        </CreateTeamCol>
+        <CourseUserContainer data={toSelectUsers} dropUser={dropUser} />
+      </Row>
+      <Row>
+        {droppedContainers.map((container, index) => (
+          <TeamCol key={container.id} xs={12} md={6} xl={4}>
+            <DroppedUsersContainer
+              index={index+1}
+              containerId={container.id}
+              droppedUsers={container.users}
+              dropUser={dropUser}
+              returnUser={returnUser}
+              removeContainer={() => removeContainer(container.id)}
+            />
+          </TeamCol>
+        ))}
+      </Row>
+      <Row>
+        <Col xl={9} xs={6}>
+        </Col>
+        <Col xl={3} xs={6}>
+          <CustomButton
+            variant='primary'
+            type='button'
+            innerText='팀 등록'
+            color='#ffffff'
+            width='100%'
+            onClick={create}
           />
-        </TeamCol>
-      ))}
-    </Row>
-  </>
-);
+        </Col>
+      </Row>
+    </>
+;
 
 export default ProjectTeamContainer;

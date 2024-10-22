@@ -17,7 +17,7 @@ const StyledHeader = styled.div`
     left: 0; /* 왼쪽에서 0 위치 */
     width: 100%; /* 전체 화면 너비 */
     background-color: white; /* 배경색 설정 */
-    z-index: 1000; /* 다른 요소 위에 표시되도록 z-index 설정 */
+    z-index: 1; /* 다른 요소 위에 표시되도록 z-index 설정 */
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); /* 살짝 그림자 추가 */
 `;
 
