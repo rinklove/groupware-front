@@ -3,8 +3,8 @@ import { Form, Table } from 'react-bootstrap';
 import styled from 'styled-components';
 import CustomInput from '../../common/CustomInput';
 import CustomButton from '../../common/CustomButton';
-import { addCourse } from '../../../api/course';
 import { STATUS } from '../../../constants/errorCode';
+import { useCourseApi } from '../../hook/UseCourseApi';
 
 const FormContainer = styled.div`
   margin: auto;
@@ -17,6 +17,7 @@ const StyledCustomButton = styled(CustomButton)`
 const CreateForm = () => {
   const [courseName, setCourseName] = useState('');
   const [isFetching, setFatching] = useState(false);
+	const { addCourse } = useCourseApi()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,9 +32,6 @@ const CreateForm = () => {
             "name": courseName
         }
         const res = await addCourse(data); 
-        if(res.status !== STATUS.CREATED) {
-            throw res;
-        }
         alert('코스 등록 성공');
         setCourseName('');
     } catch (e) {

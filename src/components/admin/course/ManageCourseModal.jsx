@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Form, Modal, Table } from 'react-bootstrap'
-import { fetchAllCourse, updateCourse } from '../../../api/course';
 import styled from 'styled-components';
 import { STATUS } from '../../../constants/errorCode';
+import { useCourseApi } from '../../hook/UseCourseApi';
 
 const StyledTable = styled(Table)`
   border-color: rgba(255, 255, 255, 0);
@@ -23,12 +23,12 @@ const ManageCourseModal = ({show, handleClose}) => {
   const [editMode, setEditMode] = useState({}); // 각 코스에 대해 수정 모드 상태를 관리
   const [originalNames, setOriginalNames] = useState({}); // 각 코스의 원래 이름 저장
   const [isFetching, setFetching] = useState(false);
+  const { fetchAllCourse, updateCourse } = useCourseApi();
 
   const getFetchData = async () => {
     try {
       const res = await fetchAllCourse();
-      console.log(res.result);
-      setCourses(res.result);
+      setCourses(res);
     } catch (e) {
       console.error(e);
     }
@@ -87,9 +87,6 @@ const ManageCourseModal = ({show, handleClose}) => {
       console.log(reqData);
       
       const res = await updateCourse(reqData); // 실제 API 호출
-      if(res.status !== STATUS.OK) {
-        throw res;
-      }
       alert('코스명이 수정되었습니다.')
       toggleEditMode(id); // 수정 후 다시 수정 모드 종료
       getFetchData(); // 수정 후 데이터를 다시 불러옴

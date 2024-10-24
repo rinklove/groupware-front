@@ -4,12 +4,10 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Badge, Form } from 'react-bootstrap';
 import CustomButton from '../../common/CustomButton';
-import { fetchAllCourse } from '../../../api/course';
 import styled from 'styled-components';
 import { EMAIL_REGEX } from '../../../constants/auth';
-import { sendSignupForm } from '../../../api/auth';
-import { STATUS } from '../../../constants/errorCode';
 import CourseSelect from './\bCourseSelect';
+import { useCourseApi } from '../../hook/UseCourseApi';
 
 const StyledContainer = styled(Container)`
   width: 80%;
@@ -59,13 +57,15 @@ const InviteForm = () => {
   const [emails, setEmails] = useState([]);
   const [initialLoad, setInitialLoad] = useState(true); // 첫 로드 여부
   const [isFetching, setFetching] = useState(false);
-
+	
+	const { fetchAllCourse, sendSignupForm } = useCourseApi();
+	
   useEffect(() => {
     const fetchCourses = async () => {
       try {
         const res = await fetchAllCourse();
-        console.log(res.data);
-        setCourse(res.data.result);
+        console.log(res);
+        setCourse(res);
       } catch (e) {
         console.error(e);
       }

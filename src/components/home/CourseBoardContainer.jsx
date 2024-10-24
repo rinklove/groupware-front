@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import BoardList from '../board/BoardList';
-import { getCourseBoardForAdmin, getCourseBoardMain } from '../../api/board';
+import { useMainBoard } from '../hook/UseMainBoardApi';
 
 const StyledDiv = styled.div`
   width: 100%;
@@ -16,6 +16,7 @@ const StyledDiv = styled.div`
 const CourseBoardContainer = ({courseId, isAdmin}) => {
   const [notices, setNotices] = useState([]);
   const [studies, setStudies] = useState([]);
+  const { getCourseBoardForAdmin, getCourseBoardMain } = useMainBoard()
 
   const fetchData = async () => {
     return isAdmin ? 
@@ -25,6 +26,7 @@ const CourseBoardContainer = ({courseId, isAdmin}) => {
   }
 
   const getData = async () => {
+    if(!courseId) return;
     try { 
       const res = await fetchData();
       console.log(res)
@@ -49,7 +51,6 @@ const CourseBoardContainer = ({courseId, isAdmin}) => {
 
 
   useEffect(() => {
-    // 게시글을 받아오는 로직
     getData();
   }, []);
 

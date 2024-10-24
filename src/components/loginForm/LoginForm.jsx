@@ -1,14 +1,15 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 import CustomInput from '../common/CustomInput';
 import CustomButton from '../common/CustomButton';
-import { login } from '../../api/auth';
 import styled from 'styled-components';
 import { STATUS } from '../../constants/errorCode';
 import { TokenContext } from '../../contexts/TokenContext';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../constants/routes';
+import { LOGIN } from '../../api/url';
+import { useAuth } from '../hook/UseAuth';
 
 const FormContainer = styled.div`
     margin: auto;
@@ -31,24 +32,23 @@ const LoginForm = () => {
     const [password, setPassword] = useState('');
     const { saveToken } = useContext(TokenContext);
     const navigate = useNavigate();
+    const { login } = useAuth()
 
     const handleSubmit = async (e) => {
         e.preventDefault(); // 기본 폼 제출 이벤트 방지
-        const res = await login({ username, password });
+        
         try {
-            const res = await login({ username, password });
-            if (res.status !== STATUS.OK) {
-                alert(res.data);
-                return;
-            }
+            const res = await login({ username, password })
+            console.log(res);
     
             // 헤더에서 Authorization 값 가져오기
-            const token = res.headers['authorization'];
-            console.log("Token:", token);
+            const accessToken = res.headers['authorization'];
+            const refreshToken = res.headers['authorization-refresh'];
+            console.log("Token:", accessToken);
     
             // Authorization 헤더가 존재하는지 확인
-            if (token) {
-                saveToken(token);
+            if (accessToken && refreshToken) {
+                saveToken(accessToken, refreshToken)
                 navigate(ROUTES.HOME);
             } else {
                 console.error("Authorization 헤더가 없습니다.");

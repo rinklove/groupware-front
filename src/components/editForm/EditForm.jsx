@@ -7,7 +7,7 @@ import {
     PASSWORD_CONSTRAINTS 
 } from '../../constants/SignupConstraints';
 import CustomButton from '../common/CustomButton';
-import { getMyPage } from '../../api/auth';
+import { useAuth } from '../hook/UseAuth';
 
 const FormContainer = styled.div`
     margin: auto;
@@ -32,15 +32,16 @@ const EditForm = () => {
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
+    const { getMyPage } = useAuth()
 
     useEffect(() => {
         const getUserData = async () => {
             try {
-                const {result} = await getMyPage();
-                setCourseName(result.courseName);
-                setUsername(result.username);
-                setName(result.name);
-                setEmail(result.email);
+                const res = await getMyPage()
+                setCourseName(res.courseName);
+                setUsername(res.username);
+                setName(res.name);
+                setEmail(res.email);
             } catch (e) {
                 console.error(e);
             }

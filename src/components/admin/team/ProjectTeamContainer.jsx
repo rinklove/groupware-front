@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import CustomInput from '../../common/CustomInput';
 import styled from 'styled-components';
-import { fetchAllCourse, fetchUsersByCourse } from '../../../api/course';
 import DroppedUsersContainer from '../../users/DroppedUserContainer';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import CourseUserContainer from './CourseUserContainer';
 import CourseSelect from '../course/\bCourseSelect';
 import CustomButton from '../../common/CustomButton';
+import { useCourseApi } from '../../hook/UseCourseApi';
 
 const StyledContainer = styled(Container)`
   margin-top: 3em;
@@ -39,6 +39,7 @@ const ProjectTeamContainer = () => {
   const [commonName, setCommonName] = useState('');
   const [toSelectUsers, setToSelectUsers] = useState([]);
   const [droppedContainers, setDroppedContainers] = useState([{ id: Date.now(), users: [] }]);
+  const { fetchAllCourse, fetchUsersByCourse } = useCourseApi();
 
   useEffect(() => {
     const getCourses = async () => {
@@ -171,7 +172,7 @@ const ProjectTeamContainer = () => {
       commonName,
       "teams": []
     };
-    
+
     droppedContainers.map((container,index) => {
       const teamName = `${index+1}팀`
       const members = container.users.map(user => user.id);

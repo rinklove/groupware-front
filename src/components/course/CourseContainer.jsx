@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
-import { fetchAllCourse } from '../../api/course';
 import styled from 'styled-components';
+import { useCourseApi } from '../hook/UseCourseApi';
 
 const CoursesDiv = styled.div`
   max-width: 70em;
@@ -23,11 +23,11 @@ const CoursesDiv = styled.div`
 
 const CourseContainer = ({ isAdmin, onSelect }) => {
   const [courses, setCourses] = useState([]);
+  const { fetchAllCourse } = useCourseApi();
 
   useEffect(() => {
     const getFetchedData = async () => {
       if (!isAdmin) return;
-
       const res = await fetchAllCourse();
       setCourses(res);
     };
@@ -38,7 +38,6 @@ const CourseContainer = ({ isAdmin, onSelect }) => {
   return (
     <CoursesDiv>
       <Tabs
-        defaultActiveKey={courses[0]?.id}
         id="uncontrolled-tab-example"
         onSelect={onSelect}
         className="mb-3"

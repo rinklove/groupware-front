@@ -3,10 +3,10 @@ import CourseBoardContainer from '../components/home/CourseBoardContainer';
 import CalenderContainer from '../components/home/CalenderContainer';
 import { Container, Row, Col } from 'react-bootstrap';
 import styled from 'styled-components';
-import { getUserRole } from '../api/auth';
 import TeamContainer from '../components/home/TeamContainer';
 import CourseContainer from '../components/course/CourseContainer';
 import { TokenContext } from '../contexts/TokenContext';
+import { useAuth } from '../components/hook/UseAuth';
 
 const ContainerDiv = styled.div`
   width: 95vw;
@@ -28,14 +28,17 @@ const StyledCol = styled(Col)`
 const UserHomePage = () => {
   const[isAdmin, setIsAdmin] = useState(false);
   const[courseId, setCourseId] = useState(null);
-  const { token } = useContext(TokenContext);
-
+  const { token } = useContext(TokenContext)
+  const { getUserRole } = useAuth();
+  
   useEffect(() => {
     const getRole = async () => {
       if(!token) return
 
       try {
-        const res = await getUserRole();
+        const res = await getUserRole()
+        console.log(res);
+        
         setIsAdmin(res.isAdmin);
       } catch (e) {
         console.error(e);

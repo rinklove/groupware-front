@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { ACCESS_TOKEN } from '../constants/auth';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '../constants/auth';
 
 // TokenContext 생성
 export const TokenContext = createContext();
@@ -17,14 +17,16 @@ export const TokenProvider = ({ children }) => {
   }, []);
 
   // 토큰 저장 함수
-  const saveToken = (userData) => {
-    localStorage.setItem(ACCESS_TOKEN, userData);
-    setToken(userData);
+  const saveToken = (accessToken, refreshToken) => {
+    localStorage.setItem(ACCESS_TOKEN, accessToken);
+    localStorage.setItem(REFRESH_TOKEN, refreshToken);
+    setToken(accessToken);
   };
 
   // 토큰 제거 함수
   const removeToken = () => {
     localStorage.removeItem(ACCESS_TOKEN);
+    localStorage.removeItem(REFRESH_TOKEN);
     setToken(null);
   };
 
