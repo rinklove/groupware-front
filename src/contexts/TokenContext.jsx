@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '../constants/auth';
+import { COURSE } from '../constants/belonging';
 
 // TokenContext 생성
 export const TokenContext = createContext();
@@ -27,6 +28,7 @@ export const TokenProvider = ({ children }) => {
   const removeToken = () => {
     localStorage.removeItem(ACCESS_TOKEN);
     localStorage.removeItem(REFRESH_TOKEN);
+    localStorage.removeItem(COURSE);
     setToken(null);
   };
 

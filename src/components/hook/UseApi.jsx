@@ -26,11 +26,9 @@ export const useApi = () => {
     };
 
     const post = async (url, data) => {
-        try {
-            console.log(`data = ${data}`);
-            
+        try {    
             const res = await basicRequest.post(url, JSON.stringify(data));
-            console.log(`post method 내부 res = ${res}`);
+            console.log(`post method 내부 res =`, res);
             return res;
         } catch (error) {
             console.error("POST 요청 에러:", error.response ? error.response.data : error.message);

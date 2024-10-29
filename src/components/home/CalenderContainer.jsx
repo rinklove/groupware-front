@@ -44,10 +44,10 @@ const CalenderContainer = ({courseId, isAdmin}) => {
           onChange={setValue} 
           value={value}
           tileDisabled={tileDisabled}
-          width='60%' /* 넓이는 유연하게 설정 */
+          width='70%' /* 넓이는 유연하게 설정 */
         />
         <ScheduleContainer
-          width='40%' /* 넓이는 유연하게 설정 */
+          width='30%' /* 넓이는 유연하게 설정 */
         />
       </CalendarDiv>
     </CalendarWrapper>

@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useContext, createContext } from "react";
 import axios, { HttpStatusCode } from "axios";
-import { BEARER, REFRESH_TOKEN } from "../constants/auth";
+import { ACCESS_TOKEN, BEARER, REFRESH_TOKEN } from "../constants/auth";
 import { TokenContext } from "../contexts/TokenContext";
 
 // ApiContext 생성
@@ -24,13 +24,15 @@ export const ApiProvider = ({ children }) => {
 
         // 요청 인터셉터
         request.interceptors.request.use(
-            (config) => {
-                if (token) {
-                    config.headers.Authorization = `${BEARER}${token}`;
-                }
-                return config;
-            },
-            (error) => Promise.reject(error)
+          (config) => {
+            // token을 다시 확인하여 localStorage에서 가져오기
+            const currentToken = token || localStorage.getItem(ACCESS_TOKEN);
+            if (currentToken) {
+              config.headers.Authorization = `${BEARER}${currentToken}`;
+            }
+            return config;
+          },
+          (error) => Promise.reject(error)
         );
 
         // 응답 인터셉터

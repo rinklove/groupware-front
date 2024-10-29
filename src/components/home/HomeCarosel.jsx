@@ -39,7 +39,7 @@ const HomeCarousel = () => {
 		<StyledCarousel 
 			activeIndex={index} 
 			onSelect={handleSelect} data-bs-theme="dark"
-			controls={true}
+			controls={false}
 		>
 			<Carousel.Item>
 				<ExampleCarouselImage 

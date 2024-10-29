@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import WebPage from './page/WebPage';
 import { TokenProvider } from './contexts/TokenContext';

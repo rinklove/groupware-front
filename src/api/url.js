@@ -2,6 +2,7 @@
 export const ADMIN = '/admin';
 export const USERS = '/users';
 export const ROLE = '/role';
+
 //auth
 export const USER = '/user'
 export const LOGIN = '/login'
@@ -20,6 +21,7 @@ export const COURSE_TEAM = `${TEAM}${COURSE}`
 export const MY_TEAM_INFO = ''
 
 //board
-export const MAIN_BOARD = '/main/board';
-export const COURSE_BOARD = '/course/board';
+export const BOARD = '/board'
+export const MAIN_BOARD = `/main${BOARD}`;
+export const COURSE_BOARD = `${COURSE}${BOARD}`;
 export const PAGE = '/page';

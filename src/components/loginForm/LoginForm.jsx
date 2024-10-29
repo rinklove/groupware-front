@@ -4,11 +4,9 @@ import Form from 'react-bootstrap/Form';
 import CustomInput from '../common/CustomInput';
 import CustomButton from '../common/CustomButton';
 import styled from 'styled-components';
-import { STATUS } from '../../constants/errorCode';
 import { TokenContext } from '../../contexts/TokenContext';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../constants/routes';
-import { LOGIN } from '../../api/url';
 import { useAuth } from '../hook/UseAuth';
 
 const FormContainer = styled.div`

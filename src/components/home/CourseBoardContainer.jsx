@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components';
 import BoardList from '../board/BoardList';
 import { useMainBoard } from '../hook/UseMainBoardApi';
+import { CourseContext } from '../../contexts/CourseContext';
 
 const StyledDiv = styled.div`
   width: 100%;
@@ -11,12 +12,17 @@ const StyledDiv = styled.div`
   box-sizing: border-box;
   border: 0.5px solid #0f1317;
   border-radius: 1em;
+
+  & span {
+    font-size: 0.8em;
+  }
 `;
 
 const CourseBoardContainer = ({courseId, isAdmin}) => {
   const [notices, setNotices] = useState([]);
   const [studies, setStudies] = useState([]);
   const { getCourseBoardForAdmin, getCourseBoardMain } = useMainBoard()
+  const { enterCourse } = useContext(CourseContext);
 
   const fetchData = async () => {
     return isAdmin ? 
@@ -25,13 +31,17 @@ const CourseBoardContainer = ({courseId, isAdmin}) => {
       await getCourseBoardMain()
   }
 
+  const setData = (res) => {
+    setStudies(res.studies);
+    setNotices(res.notices);
+  }
+
   const getData = async () => {
-    if(!courseId) return;
     try { 
       const res = await fetchData();
       console.log(res)
-      setNotices(res.notices);
-      setStudies(res.studies);
+      setData(res);
+      enterCourse(res.courseId);
     } catch (e) {
       console.error(e);
     }
@@ -42,8 +52,7 @@ const CourseBoardContainer = ({courseId, isAdmin}) => {
     try {
       const res = await getCourseBoardForAdmin(courseId);
       console.log(res)
-      setNotices(res.notices);
-      setStudies(res.studies);
+      setData(res)
     } catch (e) {
       console.error(e);
     } 

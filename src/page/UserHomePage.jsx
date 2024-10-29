@@ -7,9 +7,10 @@ import TeamContainer from '../components/home/TeamContainer';
 import CourseContainer from '../components/course/CourseContainer';
 import { TokenContext } from '../contexts/TokenContext';
 import { useAuth } from '../components/hook/UseAuth';
+import MenuOffCanvas from '../components/navbar/menu/MenuOffCanvas';
 
 const ContainerDiv = styled.div`
-  width: 95vw;
+  width: 100%;
   padding: 0;
   overflow-x: hidden;
   margin: auto;
@@ -22,15 +23,15 @@ const ContainerDiv = styled.div`
 const StyledCol = styled(Col)`
   margin: 2em 0;
   box-sizing: border-box;
-  
+
 `;
 
 const UserHomePage = () => {
   const[isAdmin, setIsAdmin] = useState(false);
-  const[courseId, setCourseId] = useState(null);
+  const[courseId, setCourseId] = useState(null)
   const { token } = useContext(TokenContext)
   const { getUserRole } = useAuth();
-  
+
   useEffect(() => {
     const getRole = async () => {
       if(!token) return
@@ -72,13 +73,13 @@ const UserHomePage = () => {
           (courseId || !isAdmin) &&
           <Row>
             {/* 첫 번째 줄: 공지사항과 캘린더 */}
-            <StyledCol md={12} xl={5}>
+            <StyledCol md={12} xl={6}>
               <CourseBoardContainer
                 courseId={courseId}
                 isAdmin={isAdmin}
               />
             </StyledCol>
-            <StyledCol md={12} xl={7}>
+            <StyledCol md={12} xl={6}>
                <CalenderContainer 
                 courseId={courseId} 
                 isAdmin={isAdmin}

@@ -17,5 +17,7 @@ export const ROUTES = {
     "WEEDING": '/weeding',
 
     "BOARD": '/board',
-    "LIST": '/list'
+    "LIST": '/list',
+    "INFO": 'info',
+    "WRITE": '/write'
 }

@@ -1,29 +1,36 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { COURSE } from '../constants/belonging'
+import { COURSE } from '../constants/belonging';
 
 export const CourseContext = createContext();
 
 export const CourseProvider = ({ children }) => {
-  const [course, setCourse] = useState(null);
+  const [courseId, setCourseId] = useState();
 
-  // 컴포넌트가 처음 렌더링될 때 사용자 정보를 가져오는 함수
+  // 컴포넌트가 처음 렌더링될 때 localStorage에서 courseId 가져오기
   useEffect(() => {
-    const storedCourse = sessionStorage.getItem(COURSE);
-    setCourse(storedCourse);
+    const storedCourse = localStorage.getItem(COURSE);
+    if (storedCourse) {
+      setCourseId(storedCourse);
+    }
   }, []);
 
-  const enterCourse = (courseId) => {
-    sessionStorage.setItem(COURSE, courseId);
-    setCourse(courseId);
+  const enterCourse = (course) => {
+    localStorage.setItem(COURSE, course);
+    setCourseId(course);
   };
 
   const exitCourse = () => {
-    sessionStorage.removeItem(COURSE);
-    setCourse(null);
+    localStorage.removeItem(COURSE);
+    setCourseId(null);
   };
 
+  // courseId 변경 시 로그 확인용
+  useEffect(() => {
+    console.log(`courseId = ${courseId}`);
+  }, [courseId]);
+
   return (
-    <CourseContext.Provider value={{ course, enterCourse, exitCourse }}>
+    <CourseContext.Provider value={{ courseId, enterCourse, exitCourse }}>
       {children}
     </CourseContext.Provider>
   );

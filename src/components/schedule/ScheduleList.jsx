@@ -17,27 +17,27 @@ const ScheduleList = ({data, width}) => {
       <h5>일정 목록</h5>
       <ListGroup>
         <ListGroup.Item>
-          <h5>10/11 ~ 10/24</h5>
+          <h6>10/11 ~ 10/24</h6>
           <span>일정 1</span>
         </ListGroup.Item>
         <ListGroup.Item>
-          <h5>10/11 ~ 10/24</h5>
+          <h6>10/11 ~ 10/24</h6>
           <span>일정 2</span>
         </ListGroup.Item>
         <ListGroup.Item>
-          <h5>10/11 ~ 10/24</h5>
+          <h6>10/11 ~ 10/24</h6>
           <span>일정 3</span>
         </ListGroup.Item>
         <ListGroup.Item>
-          <h5>10/11 ~ 10/24</h5>
+          <h6>10/11 ~ 10/24</h6>
           <span>일정 4</span>
         </ListGroup.Item>
         <ListGroup.Item>
-          <h5>10/11 ~ 10/24</h5>
+         <h6>10/11 ~ 10/24</h6>
           <span>일정 5</span>
         </ListGroup.Item>
         <ListGroup.Item>
-          <h5>10/11 ~ 10/24</h5>
+          <h6>10/11 ~ 10/24</h6>
           <span>일정 6</span>
         </ListGroup.Item>
       </ListGroup>

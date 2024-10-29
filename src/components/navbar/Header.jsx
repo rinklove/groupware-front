@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import MainLogo from './logo/MainLogo';
 import MenuOffCanvas from './menu/MenuOffCanvas';
 
-
 const StyledHeader = styled.div`
     display: flex;
     justify-content: space-around; /* 요소를 양 끝으로 배치 */
@@ -17,7 +16,7 @@ const StyledHeader = styled.div`
     left: 0; /* 왼쪽에서 0 위치 */
     width: 100%; /* 전체 화면 너비 */
     background-color: white; /* 배경색 설정 */
-    z-index: 1; /* 다른 요소 위에 표시되도록 z-index 설정 */
+    z-index: 1;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); /* 살짝 그림자 추가 */
 `;
 
@@ -28,11 +27,6 @@ const Header = () => {
 
   return (
     <StyledHeader>
-      <MenuOffCanvas
-        onhide={handleClose}
-        show={show}
-        toggleShow={toggleShow}
-      />
       <MainLogo/>
       <UserContainer toggleShow={toggleShow}/>
     </StyledHeader>
