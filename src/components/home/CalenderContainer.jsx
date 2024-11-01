@@ -5,12 +5,15 @@ import CustomCalendar from '../common/CustomCalendar';
 import ScheduleContainer from './ScheduleContainer';
 
 const CalendarWrapper = styled.div`
+margin: auto;
   display: flex;
   flex-direction: column;
   padding: 2em;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   background-color: #fff;
+  width: 100%;
+  max-width: 900px;
 
   & > h4 {
     text-align: center;

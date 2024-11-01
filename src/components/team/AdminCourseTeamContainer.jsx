@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { ListGroup } from 'react-bootstrap';
-import { COURSE_TEAM } from '../../api/url';
 import { useTeamApi } from '../hook/UseTeamApi';
+import TeamList from './TeamList';
+import { useCourse } from '../hook/UseCourse';
 
 const TitleH4 = styled.h4`
   padding: 0.5em;
 `;
 
 const TeamContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
   max-height: 30vh;
   overflow-y: auto;
+  box-sizing: border-box;
+  padding: 1em;
 
   & > * {
-    width: 100%;
-    padding: 0.5em;
-  }
-
-  & > div.list-group {
+    width: 70%;
   }
 `;
 
@@ -38,14 +40,13 @@ const AdminCourseTeamContainer = ({courseId}) => {
     {"id": 13, "title": "제목1"},
     {"id": 14, "title": "제목1"}
   ])
-  
   const { getAllTeamByCourse } = useTeamApi();
 
   useEffect(() => {
     const fetchData = async () => {
       if(!courseId) return;
       
-      const res = await getAllTeamByCourse() 
+      const res = await getAllTeamByCourse(courseId) 
       console.log(res);
     }
 
@@ -57,24 +58,7 @@ const AdminCourseTeamContainer = ({courseId}) => {
     <>
       <TitleH4>모든 팀 목록</TitleH4>
       <TeamContainer>
-        <ListGroup>
-        {
-          teams.length > 0 ?
-          teams.map(team =>           
-            <ListGroup.Item 
-              key={team.id}
-              action variant='light'
-            >
-              {team.title}
-            </ListGroup.Item>
-          ) : 
-            <ListGroup.Item 
-              action variant='light'
-            >
-              팀 목록이 없습니다.
-            </ListGroup.Item>
-        }
-        </ListGroup>
+        <TeamList teams={teams}/>
       </TeamContainer>
     </>
   )

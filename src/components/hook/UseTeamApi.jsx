@@ -1,13 +1,14 @@
 import React from 'react'
-import { COURSE_TEAM } from '../../api/url'
+import { COURSE_TEAM, MY_TEAM_INFO, TEAMS } from '../../api/url'
 import { HttpStatusCode } from 'axios'
 import { useApi } from './UseApi'
 
 export const useTeamApi = () => {
-  const { get } = useApi()
+  const { get, post } = useApi()
 
-  const getMyTeamInfo = () => {
-    
+  const getMyTeamInfo = async () => {
+    const res = await get(MY_TEAM_INFO)
+    return res;
   }
   
   const getAllTeamByCourse = async (data) => {
@@ -15,6 +16,18 @@ export const useTeamApi = () => {
     const res = await get(url);
       return res;
   }
-  return {getMyTeamInfo, getAllTeamByCourse}
+
+  const createStudyTeam = async (data) => {
+    const res = await post(TEAMS, data)
+    if(res.status !== HttpStatusCode.Created) {
+      throw res.data
+    }
+    return res.data.result
+  }
+
+  return {getMyTeamInfo, 
+    getAllTeamByCourse,
+    createStudyTeam
+  }
 }
 

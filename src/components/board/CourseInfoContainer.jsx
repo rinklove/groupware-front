@@ -9,6 +9,12 @@ const ContentWrapper = styled.div`
   width: 50%;
   min-width: 500px;
   margin: auto;
+  
+  
+
+  & > * {
+    width: 100%;
+  }
 `;
 
 const CourseInfoContainer = () => {
@@ -33,9 +39,9 @@ const CourseInfoContainer = () => {
       <BoardDetail
         data={data}
       />
-      <CommentContainer
+      {/* <CommentContainer
         boardId={id}
-      />
+      /> */}
     </ContentWrapper>
   )
 }

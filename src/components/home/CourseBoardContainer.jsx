@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components';
 import BoardList from '../board/BoardList';
 import { useMainBoard } from '../hook/UseMainBoardApi';
-import { CourseContext } from '../../contexts/CourseContext';
+import { useCourse } from '../hook/UseCourse';
 
 const StyledDiv = styled.div`
   width: 100%;
@@ -22,7 +22,7 @@ const CourseBoardContainer = ({courseId, isAdmin}) => {
   const [notices, setNotices] = useState([]);
   const [studies, setStudies] = useState([]);
   const { getCourseBoardForAdmin, getCourseBoardMain } = useMainBoard()
-  const { enterCourse } = useContext(CourseContext);
+  const { enterCourse } = useCourse();
 
   const fetchData = async () => {
     return isAdmin ? 
@@ -74,12 +74,14 @@ const CourseBoardContainer = ({courseId, isAdmin}) => {
         <BoardList
           data={notices}
           title='공지사항' // 리스트 제목 추가
+          isCourseBoard={true}
         />
       </StyledDiv>
       <StyledDiv>
         <BoardList
             data={studies}
             title='스터디 모집' 
+            isCourseBoard={true}
           />
       </StyledDiv>
     </>

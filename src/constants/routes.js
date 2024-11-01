@@ -3,7 +3,7 @@ export const ROUTES = {
     "HOME": '/',
     "LOGIN": '/login',
     "EDIT": '/edit',
-    "TEAM": '/team',
+    
     "CHAT": '/chat', 
     "NOTICE": '/notice',
     "STUDY": '/study',
@@ -19,5 +19,7 @@ export const ROUTES = {
     "BOARD": '/board',
     "LIST": '/list',
     "INFO": 'info',
-    "WRITE": '/write'
+    "WRITE": '/write',
+
+    "TEAM": '/team',
 }

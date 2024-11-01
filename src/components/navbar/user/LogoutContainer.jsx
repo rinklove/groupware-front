@@ -4,29 +4,34 @@ import { BASIC_ROUTE, ROUTES } from '../../../constants/routes';
 import { TokenContext } from '../../../contexts/TokenContext';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hook/UseAuth';
+import useSideBar from '../../hook/UseSideBar';
 
-const LogoutContainer = ({toggleShow}) => {
+const LogoutContainer = () => {
   const { removeToken } = useContext(TokenContext);
   const [isFetching, setIsFetching] = useState(false);
   const navigate = useNavigate()
   const { logout } = useAuth()
+  const { closeSidebar } = useSideBar()
 
   const handleLogout = async () => {
-    if(isFetching) {
-      alert(`잠시만 기디려주세요`);
+    if (isFetching) {
+      alert('잠시만 기다려주세요');
+      return;
     }
+  
     setIsFetching(true);
     try {
-      const res = await logout()
+      const res = await logout();
       removeToken();
-      alert('로그아웃 완료')
+      closeSidebar(); // 로그아웃 시 Sidebar 닫기
+      alert('로그아웃 완료');
       navigate(ROUTES.HOME);
     } catch (e) {
       console.error(e);
     } finally {
       setIsFetching(false);
     }
-  }
+  };
 
   return (
     <>

@@ -8,12 +8,17 @@ const StyledPagination = styled(Pagination)`
   padding: 2em;
 `;
 
-const PagingContainer = ({ pages, changePage, currentPage }) => {
+const PagingContainer = ({ pages = [], changePage, currentPage }) => {
   const [displayedPages, setDisplayedPages] = useState([]);
   const [selectedPageVo, setSelectedPageVo] = useState();
 
   // 페이지 업데이트 함수
   const updateDisplayedPages = () => {
+    if (!Array.isArray(pages)) {
+      console.error('pages is not an array:', pages);
+      return;
+    }
+
     const totalPages = pages.length;
 
     if (totalPages <= 7) {
@@ -63,17 +68,13 @@ const PagingContainer = ({ pages, changePage, currentPage }) => {
     }
   };
 
-  const getPrevData = () => {
-
-  }
-
   return (
     <StyledPagination>
       {
         currentPage !== null &&
         <Pagination.First onClick={() => handlePageChange(null)}/>
       }
-      <Pagination.Prev onClick={() => handlePageChange(pages[selectedPageVo.page-2]?.boardId || null)} disabled={currentPage === null} />
+      <Pagination.Prev onClick={() => handlePageChange(displayedPages[selectedPageVo.page - 2]?.boardId || null)} disabled={currentPage === null} />
 
       {
         displayedPages.map((pageVo) => (
@@ -86,10 +87,10 @@ const PagingContainer = ({ pages, changePage, currentPage }) => {
         </Pagination.Item>
       ))}
 
-      <Pagination.Next onClick={() => handlePageChange(pages[selectedPageVo.page]?.boardId) || pages[pages.length - 1]?.boardId} disabled={pages[pages.length - 1]?.boardId === currentPage} />
+      <Pagination.Next onClick={() => handlePageChange(displayedPages[selectedPageVo.page]?.boardId) || displayedPages[displayedPages.length - 1]?.boardId} disabled={displayedPages[displayedPages.length - 1]?.boardId === currentPage} />
       {
-        pages[pages.length - 1]?.boardId !== null &&
-        <Pagination.Last onClick={() => handlePageChange(pages[pages.length - 1]?.boardId)} />
+        displayedPages[displayedPages.length - 1]?.boardId !== null &&
+        <Pagination.Last onClick={() => handlePageChange(displayedPages[displayedPages.length - 1]?.boardId)} />
       }
     </StyledPagination>
   );

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Form, Modal, Table } from 'react-bootstrap'
 import styled from 'styled-components';
-import { STATUS } from '../../../constants/errorCode';
 import { useCourseApi } from '../../hook/UseCourseApi';
 
 const StyledTable = styled(Table)`

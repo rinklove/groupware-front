@@ -6,6 +6,8 @@ import styled from 'styled-components';
 const StyledDiv = styled.div`
   border: 0.5px solid #0f1317;
   border-radius: 0.5em;
+
+  //여기서 각
 `;
 
 const TeamContainer = ({isAdmin, courseId}) => {

@@ -7,12 +7,12 @@ import { ROUTES } from '../../constants/routes';
 
 const TitleDiv = styled.div`
   margin: auto;
+`;
 
-  & > span {
-    width: 100%;
-    font-size: 1.2em;
-    font-weight: 700;
-  }
+const StyledTitle = styled.span`
+  width: 100%;
+  font-size: 1.5em;
+  font-weight: 700;
 `;
 
 const ButtonDiv = styled.div`
@@ -91,7 +91,7 @@ const BoardList = ({ data, width, title, children, isCourseBoard = false}) => {
   return (
     <StyledDiv width={width}>
       <TitleDiv>
-        <span>{title}</span>
+        <StyledTitle>{title}</StyledTitle>
       </TitleDiv>
       <ButtonDiv>
         {children}

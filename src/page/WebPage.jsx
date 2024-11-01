@@ -10,6 +10,8 @@ import AdminPage from './admin/AdminPage';
 import CoursePage from './course/CoursePage';
 import MenuOffCanvas from '../components/navbar/menu/MenuOffCanvas';
 import styled from 'styled-components';
+import TeamPage from './team/TeamPage';
+import useSideBar from '../components/hook/UseSideBar';
 
 const ContentWrapper = styled.div`
   margin-left: ${({ showSidebar }) => (showSidebar ? '250px' : '0')}; /* 사이드바가 열릴 때 본문 너비 조정 */
@@ -21,15 +23,10 @@ const ContentWrapper = styled.div`
 `;
 
 const WebPageContent = () => {
-  const [showSidebar, setShowSidebar] = useState(false);
-
-  const toggleSidebar = () => {
-    setShowSidebar(!showSidebar);
-  };
-
+  const {showSidebar, toggleSidebar} = useSideBar()
   return (
     <>
-      <MenuOffCanvas showSidebar={showSidebar} toggleSidebar={toggleSidebar} />
+      <MenuOffCanvas show={showSidebar} toggleSidebar={toggleSidebar} />
       <ContentWrapper showSidebar={showSidebar}>
         <Header />
         <Routes>
@@ -37,6 +34,7 @@ const WebPageContent = () => {
           <Route path={ROUTES.LOGIN} element={<LoginPage />} />
           <Route path={ROUTES.EDIT} element={<EditPage />} />
           <Route path={`${ROUTES.COURSE}/*`} element={<CoursePage />} />
+          <Route path={`${ROUTES.TEAM}/*`} element={<TeamPage />} />
           <Route path={`${ROUTES.ADMIN}/*`} element={<AdminPage />} />
         </Routes>
         <Footer />

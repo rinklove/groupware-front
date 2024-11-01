@@ -3,7 +3,6 @@ import { Form, Table } from 'react-bootstrap';
 import styled from 'styled-components';
 import CustomInput from '../../common/CustomInput';
 import CustomButton from '../../common/CustomButton';
-import { STATUS } from '../../../constants/errorCode';
 import { useCourseApi } from '../../hook/UseCourseApi';
 
 const FormContainer = styled.div`

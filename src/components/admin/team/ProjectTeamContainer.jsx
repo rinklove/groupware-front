@@ -12,7 +12,8 @@ import { useCourseApi } from '../../hook/UseCourseApi';
 
 const StyledContainer = styled(Container)`
   margin-top: 3em;
-  
+  min-height: 70vh;
+
   & > * {
     margin: 0.5em 0;
   }
@@ -45,7 +46,7 @@ const ProjectTeamContainer = () => {
     const getCourses = async () => {
       try {
         const res = await fetchAllCourse();
-        setCourse(res.result);
+        setCourse(res);
       } catch (e) {
         console.error(e);
       }
@@ -59,7 +60,7 @@ const ProjectTeamContainer = () => {
 
       try {
         const res = await fetchUsersByCourse(courseId);
-        initUsers(res.result);
+        initUsers(res);
       } catch (e) {
         console.error(e);
       }

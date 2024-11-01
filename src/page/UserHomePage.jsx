@@ -8,6 +8,8 @@ import CourseContainer from '../components/course/CourseContainer';
 import { TokenContext } from '../contexts/TokenContext';
 import { useAuth } from '../components/hook/UseAuth';
 import MenuOffCanvas from '../components/navbar/menu/MenuOffCanvas';
+import { CourseContext } from '../contexts/CourseContext';
+import { useCourse } from '../components/hook/UseCourse';
 
 const ContainerDiv = styled.div`
   width: 100%;
@@ -28,7 +30,8 @@ const StyledCol = styled(Col)`
 
 const UserHomePage = () => {
   const[isAdmin, setIsAdmin] = useState(false);
-  const[courseId, setCourseId] = useState(null)
+  // const[courseId, setCourseId] = useState(null)
+  const {courseId, enterCourse} = useCourse();
   const { token } = useContext(TokenContext)
   const { getUserRole } = useAuth();
 
@@ -52,7 +55,7 @@ const UserHomePage = () => {
   const changeCourse = (value) => {
     console.log(value)
     if(value < 1) return;
-    setCourseId(value)
+    enterCourse(value)
   }
 
   return (
@@ -71,35 +74,34 @@ const UserHomePage = () => {
         }
         {
           (courseId || !isAdmin) &&
-          <Row>
-            {/* 첫 번째 줄: 공지사항과 캘린더 */}
-            <StyledCol md={12} xl={6}>
-              <CourseBoardContainer
-                courseId={courseId}
-                isAdmin={isAdmin}
-              />
-            </StyledCol>
-            <StyledCol md={12} xl={6}>
-               <CalenderContainer 
-                courseId={courseId} 
-                isAdmin={isAdmin}
-              />
-            </StyledCol>
-          </Row>
-        }
-        {
-          courseId && 
-          <Row>
-            <StyledCol md={12} xl={5}>
-              <TeamContainer
-                isAdmin={isAdmin}
-                courseId={courseId}
-              />
-            </StyledCol>
-            <StyledCol md={12} xl={6}>
-              {/* <CalenderContainer /> */}
-            </StyledCol>
-          </Row>
+          <>
+            <Row>
+              <StyledCol md={12} xl={12}>
+                <CalenderContainer 
+                  courseId={courseId} 
+                  isAdmin={isAdmin}
+                />
+              </StyledCol>
+            </Row>
+            <Row>
+              {/* 첫 번째 줄: 공지사항과 캘린더 */}
+              <StyledCol md={12} xl={6}>
+                <CourseBoardContainer
+                  courseId={courseId}
+                  isAdmin={isAdmin}
+                />
+              </StyledCol>
+              <StyledCol md={12} xl={6}>
+                <TeamContainer
+                  isAdmin={isAdmin}
+                  courseId={courseId}
+                />
+                {/* <CalenderContainer /> */}
+              </StyledCol>
+              
+            </Row>
+          </>
+          
         }
       </Container>
     </ContainerDiv>

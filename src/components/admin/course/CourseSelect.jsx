@@ -8,7 +8,8 @@ const CourseSelect = ({course, onChange, courseId}) => {
         onChange={(e) => onChange(e.target.value)}
         value={courseId || 0}
       >
-        {course.length > 0 ? (
+        {
+          course.length > 0 ? (
           <>
             <option value={0}>코스를 선택해주세요</option>
             {course.map((item) => (
