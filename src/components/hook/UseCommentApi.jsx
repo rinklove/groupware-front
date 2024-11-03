@@ -5,6 +5,7 @@ import { HttpStatusCode } from 'axios';
 
 const useCommentApi = () => {
   const { get, post, patch } = useApi();
+  
   const getUrl = (commentId) => {
     return commentId !== null ? `&commentId=${commentId}` : ''
   }

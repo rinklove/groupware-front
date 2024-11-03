@@ -44,13 +44,11 @@ const CourseTeamListPage = ({ isAdmin }) => {
   useEffect(() => {
     if (courseId) { // courseId가 있을 때만 팀 데이터를 가져옵니다.
       fetchAllTeams(); // 모든 팀 가져오기
-      fetchMyTeams();  // 내가 속한 팀 가져오기
+      if(!isAdmin) {
+        fetchMyTeams();  // 내가 속한 팀 가져오기
+      }
     }
   }, [courseId]); // courseId가 변경될 때마다 호출
-
-  const moveToCreateForm = () => {
-    navigate(`/create-team`); // 팀 생성 페이지로 이동 (라우팅 필요)
-  };
 
   return (
     <ContentWrapper>
@@ -64,21 +62,23 @@ const CourseTeamListPage = ({ isAdmin }) => {
         <Tab eventKey="total" title="모든 팀">
           <TeamList teams={totalTeams} /> {/* 모든 팀 데이터 전달 */}
         </Tab>
-        <Tab eventKey="my" title="내가 속한 팀">
-          <TeamList teams={myTeams} /> {/* 내가 속한 팀 데이터 전달 */}
-        </Tab>
         {
-          !isAdmin && (
-            <Tab eventKey="create" title="스터디 팀 생성하기">
-              <StudyTeamCreateForm
-                onTeamCreated={() => {
-                  fetchAllTeams();
-                  fetchMyTeams();
-                }}
-              />
-            </Tab>
-          )
+          !isAdmin && 
+          <Tab eventKey="my" title="내가 속한 팀">
+            <TeamList teams={myTeams} /> {/* 내가 속한 팀 데이터 전달 */}
+          </Tab>
         }
+        {
+          !isAdmin && 
+          <Tab eventKey="create" title="스터디 팀 생성하기">
+            <StudyTeamCreateForm
+              onTeamCreated={() => {
+                fetchAllTeams();
+                fetchMyTeams();
+              }}
+            />
+          </Tab>
+      }
       </Tabs>
     </ContentWrapper>
   );

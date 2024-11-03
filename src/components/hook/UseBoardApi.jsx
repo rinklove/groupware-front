@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { useApi } from './UseApi';
-import { COURSE_BOARD, PAGE } from '../../api/url';
+import { COURSE_BOARD, PAGE, TEAM_BOARD } from '../../api/url';
 import { COURSE } from '../../constants/belonging';
 import { HttpStatusCode } from 'axios';
 import { useCourse } from './UseCourse';
@@ -73,13 +73,46 @@ const useBoardApi = () => {
     return res;
   };
 
+  const getTeamBoard = async (teamId, categoryId, boardId) => {
+    const url = `${TEAM_BOARD}?teamId=${teamId}${createCategoryQueryString(categoryId)}${getUrl(boardId)}`
+    const res = await get(url)
+    return res
+  }
+
+  const getTeamBoardPaging = async (teamId, categoryId) => {
+    const url = `${TEAM_BOARD}${PAGE}?teamId=${teamId}${createCategoryQueryString(categoryId)}`
+    const res = await get(url)
+    return res
+  }
+
+  const createCategoryQueryString = (categoryId) => 
+    (categoryId ? `&categoryId=${categoryId}` : '')
+  
+  const writeTeamBoard = async (data) => {
+    const res = await post(`${TEAM_BOARD}`, data)
+    if(res.status !== HttpStatusCode.Ok) {
+      throw res.data
+    }
+    return res.data.result
+  }
+
+  const getTeamBoardById = async (boardId) => {
+    const url = `${TEAM_BOARD}/${boardId}`;
+    const res = await get(url);
+    return res;
+  };
+
   return { 
     getCourseNotice, 
     getCourseNoticePaging, 
     getCourseStudy, 
     getCourseStudyPaging,
     writeCourseStudyBoard,
-    getBoardById
+    getBoardById,
+    getTeamBoard,
+    getTeamBoardPaging,
+    writeTeamBoard,
+    getTeamBoardById,
   };
 };
 

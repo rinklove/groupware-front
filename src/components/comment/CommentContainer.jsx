@@ -1,23 +1,28 @@
-import React, { useState } from 'react'
-import CommentWriteForm from './CommentWriteForm'
-import CommentList from './CommentList'
+import React, { useState } from 'react';
+import CommentWriteForm from './CommentWriteForm';
+import CommentList from './CommentList';
+import styled from 'styled-components';
 
-const CommentContainer = ({boardId}) => {
-  const [commentPage, setCommentPage] = useState([null])
-  const [pageIndex, setIndex] = useState(0)
-  
+const ContentWrapper = styled.div`
+  margin-top: 3em;
+`;
+
+const CommentContainer = ({ boardId }) => {
+  const [commentPage, setCommentPage] = useState([]);
+  const [pageIndex, setIndex] = useState(0);
+  const [refreshComments, setRefreshComments] = useState(false); // 댓글 리스트 새로고침을 위한 상태
+
+  const refreshCommentList = () => {
+    setRefreshComments((prev) => !prev);
+  };
+
   return (
-    <div>
-      <CommentWriteForm
-        boardId={boardId}
-      />
-      <hr/>
-      <CommentList
-        boardId={boardId}
-        currentPage={commentPage[pageIndex]}
-      />
-    </div>
-  )
-}
+    <ContentWrapper>
+      <CommentWriteForm boardId={boardId} onCommentSubmit={refreshCommentList} />
+      <hr />
+      <CommentList boardId={boardId} currentPage={commentPage[pageIndex]} refreshComments={refreshComments} />
+    </ContentWrapper>
+  );
+};
 
-export default CommentContainer
+export default CommentContainer;

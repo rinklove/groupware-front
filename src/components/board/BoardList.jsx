@@ -85,7 +85,7 @@ const BoardList = ({ data, width, title, children, isCourseBoard = false}) => {
     navigate(`${ROUTES.COURSE}${ROUTES.BOARD}${ROUTES.INFO}`, { state: { id } })
     : 
     //팀 board로 이동
-    console.log("팀 board로 이동")
+    navigate(`${ROUTES.TEAM}${ROUTES.BOARD}${ROUTES.INFO}`, { state: { id } })
   }
 
   return (

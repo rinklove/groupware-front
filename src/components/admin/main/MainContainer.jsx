@@ -6,6 +6,8 @@ import styled from 'styled-components';
 import CreateForm from '../course/CreateForm';
 import CustomButton from '../../common/CustomButton';
 import ManageCourseModal from '../course/ManageCourseModal';
+import StudyTeamApprovalContainer from '../team/StudyTeamApprovalContainer';
+import AttendancesApprovalContainer from '../attendance/AttendancesApprovalContainer';
 
 const StyledDiv = styled(Container)`
   margin-top: 3em;
@@ -92,6 +94,27 @@ const MainContainer = () => {
               hrefText='프로젝트 팀 생성'
               width='100%'
             />
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12} md={12} lg={6} className='col'>
+            <CustomCard
+              title='신청한 스터디 팀 목록'
+              innerText='수강생이 만든 팀을 확인해보고 승인하세요'
+              width='100%'
+            >
+              <StudyTeamApprovalContainer/>
+            </CustomCard>
+              
+          </Col>
+          <Col xs={12} md={12} lg={6} >
+            <CustomCard
+              title='출결 요청 목록'
+              innerText='수강생들이 등록한 출결 이슈를 확인하세요.'
+              width='100%'
+            >
+              <AttendancesApprovalContainer/>
+            </CustomCard>
           </Col>
         </Row>
       </Container>

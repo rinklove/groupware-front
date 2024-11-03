@@ -8,7 +8,7 @@ const StyledPagination = styled(Pagination)`
   padding: 2em;
 `;
 
-const PagingContainer = ({ pages = [], changePage, currentPage }) => {
+const PagingContainer = ({ pages = [], changePage = null, currentPage = null }) => {
   const [displayedPages, setDisplayedPages] = useState([]);
   const [selectedPageVo, setSelectedPageVo] = useState();
 

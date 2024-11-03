@@ -4,15 +4,17 @@ import { TEAM } from '../constants/belonging'
 export const TeamContext = createContext();
 
 export const TeamProvider = ({ children }) => {
-  const [team, setTeam] = useState(null);
+  const [teamId, setTeam] = useState();
 
   // 컴포넌트가 처음 렌더링될 때 사용자 정보를 가져오는 함수
   useEffect(() => {
     const storedTeam = sessionStorage.getItem(TEAM);
-    setTeam(storedTeam);
+    if (storedTeam) {
+      setTeam(storedTeam);
+    }
   }, []);
 
-  const enterTeamSpace = (teamId) => {
+  const setTeamId = (teamId) => {
     sessionStorage.setItem(TEAM, teamId);
     setTeam(teamId);
   };
@@ -23,7 +25,7 @@ export const TeamProvider = ({ children }) => {
   };
 
   return (
-    <TeamContext.Provider value={{ team, enterTeamSpace, exitTeamSpace }}>
+    <TeamContext.Provider value={{ teamId, setTeamId, exitTeamSpace }}>
       {children}
     </TeamContext.Provider>
   );

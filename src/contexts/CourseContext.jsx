@@ -24,11 +24,6 @@ export const CourseProvider = ({ children }) => {
     setCourseId(null);
   };
 
-  // courseId 변경 시 로그 확인용
-  useEffect(() => {
-    console.log(`courseId = ${courseId}`);
-  }, [courseId]);
-
   return (
     <CourseContext.Provider value={{ courseId, enterCourse, exitCourse }}>
       {children}

@@ -1,6 +1,9 @@
 import React from 'react';
 import { Button, ListGroup } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { ROUTES } from '../../constants/routes';
+import { useTeam } from '../hook/UseTeam';
 
 const ListDiv = styled.div`
   display: flex;
@@ -26,6 +29,18 @@ const InfoDiv = styled.div`
 `;
 
 const TeamList = ({ teams= [] }) => {
+  const navigate = useNavigate()
+  const { setTeamId } = useTeam()
+
+  const enterTeamSpace = (team) => {
+    setTeamId(team.id)
+    navigate(`${ROUTES.TEAM}${ROUTES.MAIN}`, 
+      { state: { 
+        "teamName": team.name,
+        },
+      }
+    )
+  }
   
   return (
       <ListGroup>
@@ -52,7 +67,11 @@ const TeamList = ({ teams= [] }) => {
                     </span>
                   </InfoDiv>
                 </div>
-                <Button variant="primary" size="sm">
+                <Button 
+                  variant="primary" 
+                  size="sm"
+                  onClick={() => enterTeamSpace(team)}
+                >
                   → 이동하기
                 </Button>
               </ListDiv>

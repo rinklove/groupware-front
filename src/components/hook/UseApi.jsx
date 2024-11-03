@@ -47,5 +47,16 @@ export const useApi = () => {
         }
     };
 
-    return { get, post, patch };
+    const _delete = async (url, data) => {
+        try {
+            const res = await basicRequest.delete(url, { data: data });
+            console.log("DELETE 응답 결과:", res.data);
+            return res;
+        } catch (error) {
+            console.error("DELETE 요청 에러:", error.response ? error.response.data : error.message);
+            return error.response;
+        }
+    };
+
+    return { get, post, patch, _delete };
 };

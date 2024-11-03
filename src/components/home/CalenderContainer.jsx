@@ -50,6 +50,7 @@ const CalenderContainer = ({courseId, isAdmin}) => {
           width='70%' /* 넓이는 유연하게 설정 */
         />
         <ScheduleContainer
+          data={[]}
           width='30%' /* 넓이는 유연하게 설정 */
         />
       </CalendarDiv>

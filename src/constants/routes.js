@@ -3,6 +3,8 @@ export const ROUTES = {
     "HOME": '/',
     "LOGIN": '/login',
     "EDIT": '/edit',
+
+    "ATTENDANCE": '/attendance',
     
     "CHAT": '/chat', 
     "NOTICE": '/notice',
@@ -18,8 +20,11 @@ export const ROUTES = {
 
     "BOARD": '/board',
     "LIST": '/list',
-    "INFO": 'info',
+    "INFO": '/info',
     "WRITE": '/write',
 
+    "SCHEDULE": "/schedule",
+
     "TEAM": '/team',
+    "SETTING": '/setting'
 }
