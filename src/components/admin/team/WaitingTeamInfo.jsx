@@ -42,8 +42,8 @@ const WaitingTeamInfo = ({data, onUpdate}) => {
     }
 
     try {
-      const res = await approveTeam({"teamId": id})
-      alert('승인을 완료했습니다.')
+      const {value} = await approveTeam({"teamId": id})
+      alert("승인했습니다.")
       onUpdate()
     } catch (e) {
       console.error(e);
@@ -65,7 +65,7 @@ const WaitingTeamInfo = ({data, onUpdate}) => {
 
     try {
       const res = await rejectTeam({"teamId": id})
-      alert('거절을 완료했습니다.')
+      alert('거절했습니다.')
       onUpdate()
     } catch (e) {
       console.error(e);

@@ -9,6 +9,7 @@ import CourseUserContainer from './CourseUserContainer';
 import CourseSelect from '../course/\bCourseSelect';
 import CustomButton from '../../common/CustomButton';
 import { useCourseApi } from '../../hook/UseCourseApi';
+import { useTeamApi } from '../../hook/UseTeamApi';
 
 const StyledContainer = styled(Container)`
   margin-top: 3em;
@@ -41,6 +42,7 @@ const ProjectTeamContainer = () => {
   const [toSelectUsers, setToSelectUsers] = useState([]);
   const [droppedContainers, setDroppedContainers] = useState([{ id: Date.now(), users: [] }]);
   const { fetchAllCourse, fetchUsersByCourse } = useCourseApi();
+  const {createProjectTeam} = useTeamApi();
 
   useEffect(() => {
     const getCourses = async () => {
@@ -164,25 +166,35 @@ const ProjectTeamContainer = () => {
   };
 
   const requestTeamCreation = () => {
-    //각 팀에 있는 데이터의 번호를 모아.
-    if(commonName === '') {
-      alert('공통 팀 이름을 작성해주세요.')
+    if (commonName === '') {
+      alert('공통 팀 이름을 작성해주세요.');
+      return; // 이름이 비어있다면 함수를 종료
     }
-
-    const data = {
-      commonName,
-      "teams": []
-    };
-
-    droppedContainers.map((container,index) => {
-      const teamName = `${index+1}팀`
+  
+    // 초기 data 객체 선언
+    const data = []; // teams 배열을 포함한 객체로 초기화
+  
+    droppedContainers.forEach((container, index) => {
+      const teamName = `${index + 1}팀`;
       const members = container.users.map(user => user.id);
-      data.teams = [...data.teams, {teamName, members}];
+      
+      // 팀 정보를 teams 배열에 추가
+      data.push({
+        courseId,
+        name: `${commonName} ${teamName}`,
+        teamType: "PROJECT",
+        leaderId: members[0], // 팀 리더는 첫 번째 멤버
+        userIds: members
+      });
+    });
+  
+    // 결과를 콘솔에 출력
+    data.map(per => {
+      createProjectTeam(per)
     })
-    
-    //점심 나갈거 같았어
-    // console.log(`data`, data);
-  }
+
+    alert('팀 등록이 완료되었습니다.')
+  };
 
   return (
     <DndProvider backend={HTML5Backend}>

@@ -19,7 +19,11 @@ const CommentList = ({ boardId, currentPage = null, refreshComments }) => {
     <div>
       {comments.length > 0 ? (
         comments.map((comment) => (
-          <Comment key={comment.id} data={comment} />
+          <Comment 
+            key={comment.id} 
+            data={comment} 
+            updateComment={() => fetchComments()}
+          />
         ))
       ) : (
         <span>댓글이 없습니다.</span>

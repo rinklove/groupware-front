@@ -36,11 +36,13 @@ const StyledTable = styled(Table)`
 
 const AdminAttendanceList = () => {
   const [attendances, setAttendances] = useState([]);
+  const [data, setData] = useState();
   const { getAllAttendances } = useAttendanceApi();
 
   const fetchData = async () => {
     const res = await getAllAttendances();
-    setAttendances(res);
+    setData(res);
+    setAttendances(res.content);
   };
 
   useEffect(() => {
@@ -53,6 +55,12 @@ const AdminAttendanceList = () => {
     if (type === 'OUTING') return '외출';
     return '결석';
   };
+
+  const getState = (state) => {
+    if(state ==="PENDING") return "대기"
+    if(state ==="APPROVED") return "승인"
+    return "거절"
+  } 
 
   const convertTime = (time) => {
     const dateTime = new Date(time);
@@ -92,10 +100,11 @@ const AdminAttendanceList = () => {
               <th>시작일</th>
               <th>종료일</th>
               <th>사유</th>
+              <th>상태</th>
             </tr>
           </thead>
           <tbody>
-            {attendances.length > 0 ? (
+            {attendances?.length > 0 ? (
               attendances.map((a, index) => (
                 <React.Fragment key={a.attendanceId}>
                   <tr>
@@ -105,6 +114,9 @@ const AdminAttendanceList = () => {
                     <td>{convertTime(a.endAt)}</td>
                     <td>
                       <ToggleButton eventKey={`${index}`} />
+                    </td>
+                    <td>
+                      {getState(a.stat)}
                     </td>
                   </tr>
                   <tr>

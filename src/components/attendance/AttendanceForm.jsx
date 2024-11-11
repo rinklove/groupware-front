@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
 import styled from 'styled-components'
 import UseAttendanceApi from '../hook/UseAttendanceApi';
+import { HttpStatusCode } from 'axios';
 
 const ModalContainer = styled.div`
   position: fixed;
@@ -50,54 +51,39 @@ const ButtonDiv = styled.div`
   }
 `;
 
-const AttendanceForm = ({data, closeForm, onAddAttendance, onEnroll}) => {
+const AttendanceForm = ({ data, closeForm, onAddAttendance, onEnroll }) => {
   const [description, setDescription] = useState(data?.description || '');
-  const [type, setType] = useState(data?.type || ''); // 초기값 빈 문자열
-  const [startAt, setStartAt] = useState(data?.startAt || ''); // 초기값 빈 문자열
-  const [endAt, setEndAt] = useState(data?.endAt || ''); // 초기값 빈 문자열
+  const [type, setType] = useState(data?.type || '');
+  const [startAt, setStartAt] = useState(data?.startAt || '');
+  const [endAt, setEndAt] = useState(data?.endAt || '');
   const descriptionRef = useRef(null);
   const [isFetching, setIsFetching] = useState(false);
 
-  // 현재 시간을 YYYY-MM-DDTHH:MM 형식으로 설정
   const getCurrentDateTime = () => {
     const now = new Date();
-    return now.toISOString().slice(0, 16); // YYYY-MM-DDTHH:MM 형식으로 반환
+    return now.toISOString().slice(0, 16);
   };
 
   const setStartDateTime = (value) => {
-    const currentDateTime = getCurrentDateTime(); // 현재 시간을 가져옴
-    
-    // 현재 시간보다 이전의 시간이 입력되면 설정하지 않음
+    const currentDateTime = getCurrentDateTime();
     if (value < currentDateTime) {
       alert("현재 시간 이후의 날짜와 시간을 선택해주세요.");
       return;
     }
-    
-    // 유효한 시간일 경우에만 상태 업데이트
     setStartAt(value);
   };
 
   const setEndDateTime = (value) => {
-    const startDateTime = startAt || getCurrentDateTime(); // 현재 시간을 가져옴
-    
-    if (value < startDateTime) {
-      alert("시작 시간 이후의 날짜와 시간을 선택해주세요.");
-      return;
-    }
-    
     setEndAt(value);
   };
 
   const isAbsent = () => {
-    // 유형이 "ABSENT"인지 확인
     if (type !== "ABSENT") return false;
 
-    // 시작 날짜와 종료 날짜가 같은지 확인
     const startDate = new Date(startAt);
     const endDate = new Date(endAt);
     if (startDate.toDateString() !== endDate.toDateString()) return false;
 
-    // 시작 시간과 종료 시간이 각각 오전 9시와 오후 6시인지 확인
     const isStartAt9AM = startDate.getHours() === 9 && startDate.getMinutes() === 0;
     const isEndAt6PM = endDate.getHours() === 18 && endDate.getMinutes() === 0;
 
@@ -105,62 +91,63 @@ const AttendanceForm = ({data, closeForm, onAddAttendance, onEnroll}) => {
   }
 
   const enrollAttendance = async () => {
-
-    if(!type) {
-      alert('출결 유형을 선택해주세요')
-    }
-
-    if(!isAbsent()) {
-      alert('출결 이슈가 결석인 조건에 부합하지 않습니다.')
+    if (!type) {
+      alert('출결 유형을 선택해주세요');
       return;
     }
-
+  
+    if (type === 'ABSENT' && !isAbsent()) {
+      alert('출결 이슈가 결석인 조건에 부합하지 않습니다.');
+      return;
+    }
+  
+    if (startAt && endAt && endAt < startAt) {
+      alert("종료 날짜는 시작 날짜 이후여야 합니다.");
+      return;
+    }
+  
     if (isFetching) {
       alert('잠시만 기다려주세요');
       return;
     }
-
+  
     try {
       setIsFetching(true);
-      // const res = await requestAttendance(requestData);
-      const res = await onEnroll(requestData);
+      const res = await onEnroll(requestData); // onEnroll의 결과를 기다림
       console.log(res);
-      if(data.attendanceId) {
-        alert('요청한 출결을 수정했습니다.');
-      } else {
-        alert('출결을 요청했습니다.');
-
-      }
-      onAddAttendance();
+      const message = res.status === HttpStatusCode.Ok ? '요청한 출결을 수정했습니다.' : '출결을 요청했습니다.';
+      alert(message);
+  
+      await onAddAttendance(); // onAddAttendance를 호출하여 fetchData 실행
+      console.log('fetchData가 실행되었습니다.');
     } catch (e) {
-      if(e.code === 400) {
-        alert(e.message)
+      if (e.code === 400) {
+        alert(e.message);
       }
     } finally {
       setIsFetching(false);
+      closeForm()
     }
   };
+  
 
   const requestData = {
-    ...(data?.attendanceId && { "id": data.attendanceId }),
-    "issueType": type,
+    ...(data?.attendanceId && { id: data.attendanceId }),
+    issueType: type,
     startAt,
     endAt,
-    description,
+    description
   };
 
   return (
     <ModalContainer>
       <FormDiv>
-      <h5>출결 이슈 요청하기</h5>
+        <h5>출결 이슈 요청하기</h5>
         <StyledSpan><StarSpan>*</StarSpan>는 필수 입력값입니다.</StyledSpan>
         <Form onSubmit={(e) => e.preventDefault()}>
           <Form.Group className="mb-3">
             <Form.Label>출결 이슈 유형<StarSpan>*</StarSpan></Form.Label>
-            <Form.Select
-              className="w-50"
-              onChange={(e) => setType(e.target.value)}
-            >
+            <Form.Select className="w-50" onChange={(e) => setType(e.target.value)}>
               <option>유형을 선택하세요</option>
               <option value="EARLY">조퇴</option>
               <option value="OUTING">외출</option>
@@ -175,7 +162,7 @@ const AttendanceForm = ({data, closeForm, onAddAttendance, onEnroll}) => {
               type="datetime-local"
               value={startAt}
               onChange={(e) => setStartDateTime(e.target.value)}
-              min={getCurrentDateTime()} // 현재 시간 이후로 제한
+              min={getCurrentDateTime()}
             />
           </Form.Group>
           <Form.Group className="mb-3">
@@ -184,7 +171,7 @@ const AttendanceForm = ({data, closeForm, onAddAttendance, onEnroll}) => {
               type="datetime-local"
               value={endAt}
               onChange={(e) => setEndDateTime(e.target.value)}
-              min={startAt || getCurrentDateTime()} // 시작 시간 이후로 제한
+              min={startAt || getCurrentDateTime()}
             />
           </Form.Group>
           <Form.Group className="mb-3">
@@ -209,10 +196,10 @@ const AttendanceForm = ({data, closeForm, onAddAttendance, onEnroll}) => {
               </Button>
             </ButtonDiv>
           </Form.Group>
-          </Form>
+        </Form>
       </FormDiv>
     </ModalContainer>
   )
 }
 
-export default AttendanceForm
+export default AttendanceForm;

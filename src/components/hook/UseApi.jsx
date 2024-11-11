@@ -11,18 +11,14 @@ export const useApi = () => {
     }
 
     const get = async (url) => {
-        try {
-            const res = await basicRequest.get(url);
-            console.log("GET 응답 결과:", res.data);
-            if(res.status !== HttpStatusCode.Ok) {
-              throw res
-            }
-
-            return res.data.result;
-        } catch (error) {
-            console.error("GET 요청 에러:", error.response ? error.response.data : error.message);
-            return error.response;
+        const res = await basicRequest.get(url);
+        console.log("GET 응답 결과:", res.data);
+        if(res.status !== HttpStatusCode.Ok) {
+            throw res
         }
+
+        return res.data.result;
+        
     };
 
     const post = async (url, data) => {

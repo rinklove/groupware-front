@@ -4,7 +4,7 @@ import { COMMENTS } from '../../api/url';
 import { HttpStatusCode } from 'axios';
 
 const useCommentApi = () => {
-  const { get, post, patch } = useApi();
+  const { get, post, patch, _delete } = useApi();
   
   const getUrl = (commentId) => {
     return commentId !== null ? `&commentId=${commentId}` : ''
@@ -24,7 +24,15 @@ const useCommentApi = () => {
     return res
   }
 
-  return { addComment, getComments }
+  const deleteComment = async (data) => {
+    const res = await _delete(`${COMMENTS}`, data)
+    if(res.status !== HttpStatusCode.Ok) {
+      throw res;
+    }
+    return res.data.result;
+  }
+
+  return { addComment, getComments, deleteComment }
 }
 
 export default useCommentApi

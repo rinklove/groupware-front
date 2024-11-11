@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import 'react-calendar/dist/Calendar.css'; // 기본 스타일을 적용
 import CustomCalendar from '../common/CustomCalendar';
 import ScheduleContainer from './ScheduleContainer';
+import useScheduleApi from '../hook/UseScheduleApi';
+import { useCourse } from '../hook/UseCourse';
 
 const CalendarWrapper = styled.div`
 margin: auto;
@@ -32,11 +34,38 @@ const CalendarDiv = styled.div`
   flex: 1; /* 부모의 높이를 동일하게 나누기 위해 flex 사용 */
 `;
 
-const CalenderContainer = ({courseId, isAdmin}) => {
+const CalenderContainer = ({isAdmin}) => {
   const [value, setValue] = useState(new Date());
+  const {getCourseScheduleById, getCourseScheduleByIdForAdmin} = useScheduleApi();
+  const [data, setData] = useState([])
+  const {courseId} = useCourse();
+
   const tileDisabled = () => {
     return false;
   };
+
+  const fetchUserData = async () => {
+    if(courseId){
+      const res = await getCourseScheduleById(courseId)
+      setData(res)
+    }
+  }
+
+  const fetchAdminData = async () => {
+    const res = await getCourseScheduleByIdForAdmin(courseId)
+    setData(res)
+    console.log(`관리자 res`, res);
+    
+  }
+
+  useEffect(() => {
+    if(!isAdmin && !courseId) return;
+    if (!isAdmin && courseId) {
+      fetchUserData();
+    } else if (isAdmin && courseId) {
+      fetchAdminData();
+    }
+  }, [courseId]);
 
   return (
     <CalendarWrapper>
@@ -47,11 +76,13 @@ const CalenderContainer = ({courseId, isAdmin}) => {
           onChange={setValue} 
           value={value}
           tileDisabled={tileDisabled}
-          width='70%' /* 넓이는 유연하게 설정 */
+          width='65%' /* 넓이는 유연하게 설정 */
         />
         <ScheduleContainer
-          data={[]}
-          width='30%' /* 넓이는 유연하게 설정 */
+          isTeamSchedule={false}
+          isAdmin={isAdmin}
+          data={data}
+          width='35%' /* 넓이는 유연하게 설정 */
         />
       </CalendarDiv>
     </CalendarWrapper>

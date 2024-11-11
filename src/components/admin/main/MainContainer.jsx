@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CustomCard from '../../common/CustomCard'
 import { BASIC_ROUTE, ROUTES } from '../../../constants/routes'
 import { Col, Container, Row } from 'react-bootstrap'
@@ -7,7 +7,10 @@ import CreateForm from '../course/CreateForm';
 import CustomButton from '../../common/CustomButton';
 import ManageCourseModal from '../course/ManageCourseModal';
 import StudyTeamApprovalContainer from '../team/StudyTeamApprovalContainer';
+import { useAuth } from '../../hook/UseAuth';
+import { useNavigate } from 'react-router-dom';
 import AttendancesApprovalContainer from '../attendance/AttendancesApprovalContainer';
+import CourseScheduleForm from '../../schedule/\bCourseScheduleForm';
 
 const StyledDiv = styled(Container)`
   margin-top: 3em;
@@ -30,6 +33,30 @@ const StyledDiv = styled(Container)`
 
 const MainContainer = () => {
   const [showCourseModal, setCourseModal] = useState(false);
+  const [showScheduleModal, setScheduleModal] = useState(false);
+  const [isAdmin, setAdmin] = useState(false)
+  const navigate = useNavigate()
+
+  const { getUserRole } = useAuth();
+  const fetchData = async () => {
+    try {
+      const {isAdmin} = await getUserRole()
+      if(!isAdmin) {
+        alert('관리자만 이용가능합니다.')
+        navigate(`${ROUTES.HOME}`)
+      }
+      setAdmin(isAdmin)
+    } catch ({response}) {      
+      const {code, message} = response.data
+      if(code === 403) {
+        alert(message)
+        navigate(`${ROUTES.HOME}`)
+      }
+    }
+  }
+  useEffect(() => {
+    fetchData()
+  }, [])
 
   return (
     <StyledDiv>
@@ -103,7 +130,9 @@ const MainContainer = () => {
               innerText='수강생이 만든 팀을 확인해보고 승인하세요'
               width='100%'
             >
-              <StudyTeamApprovalContainer/>
+              <StudyTeamApprovalContainer
+                isAdmin={isAdmin}
+              />
             </CustomCard>
               
           </Col>
@@ -113,8 +142,34 @@ const MainContainer = () => {
               innerText='수강생들이 등록한 출결 이슈를 확인하세요.'
               width='100%'
             >
-              <AttendancesApprovalContainer/>
+              <AttendancesApprovalContainer
+                isAdmin={isAdmin}
+              />
             </CustomCard>
+          </Col>
+        </Row>
+        <h4>일정</h4>
+        <Row>
+          <Col
+            xs={12} md={12} lg={4}
+          >
+           <CustomCard
+              title='코스 일정 등록'
+              innerText='코스에서 진행되는 특강, 수료식, 프로젝트를 등록하세요!'
+              width='100%'
+            >
+              <CustomButton
+                type='button'
+                variant='primary'
+                innerText='코스 일정 등록'
+                color='#ffffff'
+                onClick={() => setScheduleModal(true)}
+              />              
+              <CourseScheduleForm
+                show={showScheduleModal}
+                handleClose={() => setScheduleModal(false)}
+              />
+            </CustomCard> 
           </Col>
         </Row>
       </Container>

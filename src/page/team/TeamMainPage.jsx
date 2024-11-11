@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import CustomCalendar from '../../components/common/CustomCalendar';
 import ScheduleContainer from '../../components/home/ScheduleContainer';
 import { useTeam } from '../../components/hook/UseTeam';
+import { useNavigate } from 'react-router-dom';
 
 const TitleH4 = styled.h4`
   margin-top: 2em;
@@ -20,6 +21,7 @@ const TeamMainPage = () => {
   const [schedules, setSchedules] = useState([])
   const [teamBoards, setTeamBoards] = useState([])
   const [teamDuration, setTeamDuration] = useState([])
+  const navigate = useNavigate();
   const { teamId } = useTeam()
   const { getTeamSchedulebyId } = useScheduleApi();
   const { getTeamBoard } = useBoardApi()
@@ -36,14 +38,19 @@ const TeamMainPage = () => {
 
   const fetchData = async () => {
     try {
-      const boardRes = await getTeamBoard(teamId)
-      setTeamBoards(boardRes)
       const scheduleRes = await getTeamSchedulebyId(teamId)
       setSchedules(scheduleRes)
       setTeamDuration(convertToDuration(schedules))
+      const boardRes = await getTeamBoard(teamId)
+      setTeamBoards(boardRes)
 
     } catch (e) {
       console.error(e);
+      
+      // if(response.data.code === 403) {
+      //   alert(response.data.message);
+      //   navigate(-1)
+      // }
     }
   }
   useEffect(() => {
@@ -74,6 +81,7 @@ const TeamMainPage = () => {
           width='60%' /* 넓이는 유연하게 설정 */
         />
         <ScheduleContainer
+          isTeamSchedule={true}
           data={schedules}
           width='40%' /* 넓이는 유연하게 설정 */
         />

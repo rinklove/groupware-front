@@ -79,10 +79,12 @@ const TeamScheduleList = () => {
         </div>
         <div>
           <ScheduleList
+            isTeamSchedule={false}
             title='코스 일정'
             data={courseSchedules}
           />
           <ScheduleList
+            isTeamSchedule={true}
             title='팀 일정'
             data={teamSchedules}
           >

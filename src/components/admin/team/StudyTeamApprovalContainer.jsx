@@ -7,20 +7,28 @@ const ContentWrapper = styled.div`
 
 `;
 
-const StudyTeamApprovalContainer = () => {
+const StudyTeamApprovalContainer = ({isAdmin}) => {
   const [teams, setTeams] = useState([])
   const { getWatingTeamListForAdmin } = useTeamApi();
 
   const fetchData = async () => {
-    const res = await getWatingTeamListForAdmin()
-    console.log(res);
+    try {
+      const res = await getWatingTeamListForAdmin()
+      console.log(res);
+      setTeams(res)
+    } catch ({response}) {
+      const {code, message} = response.data
+      console.error(message);
+      
+    }
     
-    setTeams(res)
   }
 
   useEffect(() => {
-    fetchData()
-  }, [])
+    if(isAdmin) {
+      fetchData()
+    }
+  }, [isAdmin])
 
   return (
     <ContentWrapper>

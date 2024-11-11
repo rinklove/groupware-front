@@ -10,6 +10,15 @@ const ContentWrapper = styled.div`
   border-radius: 8px; /* 모서리 둥글게 */
 `
 
+const UserDiv = styled.div`
+  
+
+  & > span:not(span:first-child) {
+    display: inline;
+    margin-right: 0.5em;
+  }
+`
+
 const TeamInfo = () => {
   const [members, setMembers] = useState([])
   const { getTeamMember } = useTeamApi()
@@ -36,18 +45,20 @@ const TeamInfo = () => {
     <ContentWrapper>
       <h3>{teamName}</h3>
       <div>
-        <span>팀 구성원</span>
-        <div className="vr mx-2" />
-        {
-          members.length > 0 ?
-          members.map(member => 
-            <span
-              key={member.id}
-            >{member.name}</span>
-          )
-          :
-          null
-        }
+        <UserDiv>
+          <span>팀 구성원</span>
+          <div className="vr mx-2" />
+          {
+            members.length > 0 ?
+            members.map(member => 
+              <span
+                key={member.id}
+              >{member.name}</span>
+            )
+            :
+            null
+          }
+        </UserDiv>
       </div>
     </ContentWrapper>
   )

@@ -13,6 +13,7 @@ const FormContainer = styled.div`
     margin: auto;
     margin-top: 6em;
     width: 30vw;
+    min-height: 70vh;
 
     & > h3 {
         font-weight: 600;
@@ -47,12 +48,13 @@ const LoginForm = () => {
             // Authorization 헤더가 존재하는지 확인
             if (accessToken && refreshToken) {
                 saveToken(accessToken, refreshToken)
+                localStorage.setItem("id", username);
                 navigate(ROUTES.HOME);
             } else {
                 console.error("Authorization 헤더가 없습니다.");
             }
         } catch (error) {
-            console.error("로그인 중 에러 발생:", error);
+            alert(error)
         }
     };
 

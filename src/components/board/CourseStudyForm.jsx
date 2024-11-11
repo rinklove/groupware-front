@@ -8,6 +8,7 @@ import useBoardApi from '../hook/UseBoardApi';
 import { COURSE } from '../../constants/belonging';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../constants/routes';
+import { useCourse } from '../hook/UseCourse';
 
 const StyledForm = styled(Form)`
   margin: auto;
@@ -44,7 +45,7 @@ const CourseStudyForm = () => {
   const [content, setContent] = useState('');
   const [imageStyles, setImageStyles] = useState({}); // 이미지 크기 상태 추가
   const { writeCourseStudyBoard } = useBoardApi();
-  const [courseId, setCourseId] = useState(localStorage.getItem(COURSE))
+  const {courseId} = useCourse();
   const [isFetching, setIsFetching] = useState(false)
   const navigate = useNavigate();
 

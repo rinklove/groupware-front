@@ -12,6 +12,7 @@ import MenuOffCanvas from '../components/navbar/menu/MenuOffCanvas';
 import styled from 'styled-components';
 import TeamPage from './team/TeamPage';
 import useSideBar from '../components/hook/UseSideBar';
+import ChatPage from './chat/ChatPage';
 
 const ContentWrapper = styled.div`
   margin-left: ${({ showSidebar }) => (showSidebar ? '250px' : '0')}; /* 사이드바가 열릴 때 본문 너비 조정 */

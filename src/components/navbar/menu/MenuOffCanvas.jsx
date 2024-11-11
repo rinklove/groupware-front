@@ -84,8 +84,8 @@ const MenuOffCanvas = ({ show, toggleSidebar }) => {
           </Nav.Link>
           <Nav.Link
             as={Link}
-            to={`${BASIC_ROUTE}${ROUTES.CHAT}`}
-            className={location.pathname === `${BASIC_ROUTE}${ROUTES.CHAT}` ? 'active' : ''}
+            to={`${ROUTES.COURSE}${ROUTES.CHAT}${ROUTES.LIST}`}
+            className={location.pathname === `${ROUTES.COURSE}${ROUTES.CHAT}${ROUTES.LIST}` ? 'active' : ''}
           >
             채팅방
           </Nav.Link>

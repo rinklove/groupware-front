@@ -33,6 +33,10 @@ const TeamList = ({ teams= [] }) => {
   const { setTeamId } = useTeam()
 
   const enterTeamSpace = (team) => {
+    if(team.creationWaiting) {
+      alert('승인 대기중이니 잠시만 기다려주세요!')
+      return
+    }
     setTeamId(team.id)
     navigate(`${ROUTES.TEAM}${ROUTES.MAIN}`, 
       { state: { 

@@ -13,6 +13,7 @@ import { useCourse } from '../components/hook/UseCourse';
 
 const ContainerDiv = styled.div`
   width: 100%;
+  min-height: 70vh;
   padding: 0;
   overflow-x: hidden;
   margin: auto;
@@ -30,7 +31,6 @@ const StyledCol = styled(Col)`
 
 const UserHomePage = () => {
   const[isAdmin, setIsAdmin] = useState(false);
-  // const[courseId, setCourseId] = useState(null)
   const {courseId, enterCourse} = useCourse();
   const { token } = useContext(TokenContext)
   const { getUserRole } = useAuth();
@@ -67,7 +67,7 @@ const UserHomePage = () => {
             <Col md={12} xl={12}>
               <CourseContainer
                 isAdmin={isAdmin}
-                onSelect={(e) => changeCourse(e)}
+                onSelect={changeCourse}
               />
             </Col>
           </Row>
@@ -96,12 +96,9 @@ const UserHomePage = () => {
                   isAdmin={isAdmin}
                   courseId={courseId}
                 />
-                {/* <CalenderContainer /> */}
-              </StyledCol>
-              
+              </StyledCol>        
             </Row>
           </>
-          
         }
       </Container>
     </ContainerDiv>

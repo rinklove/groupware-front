@@ -26,6 +26,12 @@ const ContentWrapper = styled.div`
 
 const ContentDiv = styled.div`
   margin-bottom: 5em;
+
+  & img {
+    width: 100%;
+    height: auto; /* 비율 유지 */
+    object-fit: contain; /* 비율을 유지하며 이미지가 잘리지 않도록 설정 */
+  }
 `;
 
 const BoardDetail = ({ data }) => {
@@ -35,6 +41,9 @@ const BoardDetail = ({ data }) => {
         <h3>{data?.title}</h3>
         <span>{data?.createdAt}</span>
         <span>작성자 {data?.writer}</span>
+        <div>
+          조회수 {data?.readCount}
+        </div>
         {
           (data?.isAdmin || data?.isMine) && 
           <>

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import BoardList from '../board/BoardList';
 import { useMainBoard } from '../hook/UseMainBoardApi';
@@ -18,74 +18,63 @@ const StyledDiv = styled.div`
   }
 `;
 
-const CourseBoardContainer = ({courseId, isAdmin}) => {
+const CourseBoardContainer = ({ courseId, isAdmin }) => {
   const [notices, setNotices] = useState([]);
   const [studies, setStudies] = useState([]);
-  const { getCourseBoardForAdmin, getCourseBoardMain } = useMainBoard()
+  const { getCourseBoardForAdmin, getCourseBoardMain } = useMainBoard();
   const { enterCourse } = useCourse();
 
   const fetchData = async () => {
-    return isAdmin ? 
-      await getCourseBoardForAdmin(courseId) 
-      : 
-      await getCourseBoardMain()
-  }
+    return isAdmin
+      ? await getCourseBoardForAdmin(courseId)
+      : await getCourseBoardMain();
+  };
 
   const setData = (res) => {
-    setStudies(res.studies);
-    setNotices(res.notices);
-  }
+    if (res) {
+      setStudies(res.studies || []);
+      setNotices(res.notices || []);
+      if (res.courseId) enterCourse(res.courseId); // courseId가 있을 때만 enterCourse 호출
+    }
+  };
 
   const getData = async () => {
-    try { 
+    
+    try {
       const res = await fetchData();
-      console.log(res)
+      console.log(res);
       setData(res);
-      enterCourse(res.courseId);
     } catch (e) {
       console.error(e);
     }
-  }
-
-  const getAdminData = async () => {
-    if(!isAdmin && !courseId) return;
-    try {
-      const res = await getCourseBoardForAdmin(courseId);
-      console.log(res)
-      setData(res)
-    } catch (e) {
-      console.error(e);
-    } 
-  }
-
+  };
 
   useEffect(() => {
-    getData();
-  }, []);
+    if (isAdmin && courseId) {
+      getData(); // 관리자 모드에서 courseId가 있을 때 데이터 호출
+    } else if (!isAdmin) {
+      getData(); // 일반 사용자 모드
+    }
+  }, [isAdmin, courseId]);
 
-  useEffect(() => {
-    // 게시글을 받아오는 로직
-    getAdminData();
-  }, [courseId]);
-  
   return (
     <>
       <StyledDiv>
         <BoardList
           data={notices}
-          title='공지사항' // 리스트 제목 추가
+          title="공지사항"
           isCourseBoard={true}
         />
       </StyledDiv>
       <StyledDiv>
         <BoardList
-            data={studies}
-            title='스터디 모집' 
-            isCourseBoard={true}
-          />
+          data={studies}
+          title="스터디 모집"
+          isCourseBoard={true}
+        />
       </StyledDiv>
     </>
-  )
-}
+  );
+};
 
 export default CourseBoardContainer;

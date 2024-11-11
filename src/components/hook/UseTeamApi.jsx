@@ -1,5 +1,5 @@
 import React from 'react'
-import { ADMIN_APPROVAL, ADMIN_WAITING, COURSE_TEAM, MY_TEAM_INFO, TEAM_MEMBERS, TEAM } from '../../api/url'
+import { ADMIN_APPROVAL, ADMIN_WAITING, COURSE_TEAM, MY_TEAM_INFO, TEAM_MEMBERS, TEAM, ADMIN_REJECTION } from '../../api/url'
 import { HttpStatusCode } from 'axios'
 import { useApi } from './UseApi'
 
@@ -25,6 +25,14 @@ export const useTeamApi = () => {
     return res.data.result
   }
 
+  const createProjectTeam = async (data) => {
+    const res = await post(TEAM, data)
+    if(res.status !== HttpStatusCode.Created) {
+      throw res.data
+    }
+    return res.data.result
+  }
+
   const getWatingTeamListForAdmin = async () => {
     const res = await get(ADMIN_WAITING)
     return res
@@ -39,8 +47,8 @@ export const useTeamApi = () => {
   }
 
   const rejectTeam = async (data) => {
-    const res = await _delete(ADMIN_APPROVAL, data)
-    if(res.status !== HttpStatusCode.NoContent) {
+    const res = await post(ADMIN_REJECTION, data)
+    if(res.status !== HttpStatusCode.Ok) {
       throw res.data
     }
     return res.data.result;
@@ -55,6 +63,7 @@ export const useTeamApi = () => {
   return {getMyTeamInfo, 
     getAllTeamByCourse,
     createStudyTeam,
+    createProjectTeam,
     getWatingTeamListForAdmin,
     approveTeam,
     rejectTeam,

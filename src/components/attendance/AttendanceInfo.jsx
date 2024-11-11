@@ -25,7 +25,7 @@ const ButtonDiv = styled.div`
   }
 `
 
-const AttendanceInfo = ({attendance}) => {
+const AttendanceInfo = ({attendance, updateData}) => {
 
   const {approveAttendance, rejectAttendance} = UseAttendanceApi()
 
@@ -51,6 +51,18 @@ const AttendanceInfo = ({attendance}) => {
       : `${year}년 ${month}월 ${day}일 ${hours}시`;
   }
 
+  const handleApprove = async (id) => {
+    const res = await approveAttendance({"id": id})
+    alert('승인했습니다.')
+    updateData()
+  }
+
+  const handleJeject = async (id) => {
+    const res = await rejectAttendance({"id": id})
+    alert('거절했습니다.')
+    updateData()
+  }
+
   return (
     <ContentWrapper>
       <div>
@@ -70,18 +82,18 @@ const AttendanceInfo = ({attendance}) => {
       </div>
       <div>
         <h6>사유</h6>
-        <span>{attendance.descripion}</span>
+        <span>{attendance.description}</span>
       </div>
       <ButtonDiv>
         <Button
           variant='success'
-          onClick={() => approveAttendance({"id": attendance.attendanceId})}
+          onClick={() => handleApprove(attendance.attendanceId)}
         >
           승인
         </Button>
         <Button
           variant='danger'
-          onClick={() => rejectAttendance({"id": attendance.attendanceId})}
+          onClick={() => handleJeject(attendance.attendanceId)}
         >
           반려
         </Button>

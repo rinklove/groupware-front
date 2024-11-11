@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import { EMAIL_REGEX } from '../../../constants/auth';
 import CourseSelect from './\bCourseSelect';
 import { useCourseApi } from '../../hook/UseCourseApi';
+import { useAuth } from '../../hook/UseAuth';
 
 const StyledContainer = styled(Container)`
   width: 80%;
@@ -58,7 +59,8 @@ const InviteForm = () => {
   const [initialLoad, setInitialLoad] = useState(true); // 첫 로드 여부
   const [isFetching, setFetching] = useState(false);
 	
-	const { fetchAllCourse, sendSignupForm } = useCourseApi();
+	const { fetchAllCourse } = useCourseApi();
+  const { sendSignupForm } = useAuth()
 	
   useEffect(() => {
     const fetchCourses = async () => {
@@ -124,7 +126,12 @@ const InviteForm = () => {
 
     try {
       setFetching(true);
-      const res = await sendSignupForm({courseId, emails});
+      const data = {
+        courseId,
+        "emails": emails.map(email => {return {email}})
+      }
+      console.log(`요청 데이터 = `, data);
+      const res = await sendSignupForm(data);
       alert('회원가입 폼 전송 되었습니다.');
     } catch (e) {
       alert('회원가입 폼 전송 실패');
@@ -136,7 +143,7 @@ const InviteForm = () => {
 
   return (
     <StyledContainer>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={(e) => handleSubmit(e)}>
         <StyledRow>
           <h5 className="fw-bold">이메일 추가</h5>
           <Col md={5} xl={4}>

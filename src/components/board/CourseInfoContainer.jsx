@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import BoardDetail from './BoardDetail';
 
 const ContentWrapper = styled.div`
-  width: 50%;
+  width: 60%;
   min-width: 500px;
   margin: auto;
   

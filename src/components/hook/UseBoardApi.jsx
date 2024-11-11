@@ -7,14 +7,7 @@ import { useCourse } from './UseCourse';
 
 const useBoardApi = () => {
   const { get, post } = useApi();
-  const { courseId, enterCourse } = useCourse();
-
-  useEffect(() => {
-    const storedCourse = localStorage.getItem(COURSE);
-    if (storedCourse) {
-      enterCourse(storedCourse); // localStorage에서 courseId 가져와 설정
-    }
-  }, [enterCourse]); // enterCourse가 변할 때만 실행
+  const { courseId } = useCourse();
 
   const getUrl = (boardId) => (boardId ? `&boardId=${boardId}` : '');
 
@@ -66,9 +59,6 @@ const useBoardApi = () => {
   };
 
   const getBoardById = async (id) => {
-    if (!courseId) {
-      throw new Error("courseId가 설정되지 않았습니다."); // courseId가 없을 경우 에러 처리
-    }
     const res = await get(`${COURSE_BOARD}/${id}`);
     return res;
   };

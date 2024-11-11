@@ -1,23 +1,23 @@
 import React from 'react'
-import { ADMIN_ATTANDANCES, APPROVE, ATTANDANCES, REJECT } from '../../api/url'
+import { ADMIN_ATTANDANCES, ADMIN_ATTENDANCES_REQUESTED, APPROVE, ATTANDANCES, REJECT } from '../../api/url'
 import { useApi } from './UseApi'
 import { HttpStatusCode } from 'axios'
 
 const useAttendanceApi = () => {
   const { get, post, patch, _delete } = useApi()
 
-  const getWaitingAttendances = async () => {
-    const res = await get(ADMIN_ATTANDANCES)
+  const getWaitingAttendances = async (page = 0) => {
+    const res = await get(`${ADMIN_ATTENDANCES_REQUESTED}?page=${page}`)
     return res;
   }
 
-  const getMyAttendances = async () => {
-    const res = await get(`${ATTANDANCES}`)
+  const getMyAttendances = async (page = 0) => {
+    const res = await get(`${ATTANDANCES}?page=${page}`)
     return res;
   }
 
-  const getAllAttendances = async () => {
-    const res = await get(`${ADMIN_ATTANDANCES}`)
+  const getAllAttendances = async (page = 0) => {
+    const res = await get(`${ADMIN_ATTANDANCES}?page=${page}`)
     return res
   }
 

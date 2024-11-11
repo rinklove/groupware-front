@@ -36,8 +36,8 @@ const HomeCarousel = () => {
 	};
 
 	return (
-		<StyledCarousel 
-			activeIndex={index} 
+		<StyledCarousel
+			indicators={false} 
 			onSelect={handleSelect} data-bs-theme="dark"
 			controls={false}
 		>

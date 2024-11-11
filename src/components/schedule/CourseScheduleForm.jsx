@@ -1,41 +1,13 @@
-import React, { useRef, useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import React, { useEffect, useRef, useState } from 'react';
+import { Button, Form, Modal } from 'react-bootstrap';
 import styled from 'styled-components';
-import useScheduleApi from '../../hook/UseScheduleApi';
-import { useTeam } from '../../hook/UseTeam';
-
-const ContentWrapper = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1050;
-`;
+import useScheduleApi from '../hook/UseScheduleApi';
+import { useCourseApi } from '../hook/UseCourseApi';
 
 const StyledSpan = styled.div`
   font-size: 0.9em;
   color: #6c757d;
   margin-bottom: 1em;
-`;
-
-const FormDiv = styled.div`
-  width: 60%;
-  max-width: 600px;
-  min-width: 400px;
-  padding: 2em;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-  position: relative;
-
-  & > h5 {
-    text-align: center;
-  }
 `;
 
 const StarSpan = styled.span`
@@ -52,17 +24,30 @@ const ButtonDiv = styled.div`
   }
 `;
 
-const TeamScheduleForm = ({ closeForm, onAddSchedule }) => {
-  const { teamId } = useTeam();
+const CourseScheduleForm = ({ show, handleClose }) => {
+  const [courses, setCourses] = useState([]);
+  const [courseId, setCourseId] = useState();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [type, setType] = useState('');
+  const [type, setType] = useState();
   const [startAt, setStartAt] = useState('');
   const [endAt, setEndAt] = useState('');
   const nameRef = useRef(null);
   const descriptionRef = useRef(null);
   const [isFetching, setIsFetching] = useState(false);
-  const { addTeamSchedule } = useScheduleApi();
+  const {fetchAllCourse} = useCourseApi();
+  const { addCourseSchedule } = useScheduleApi();
+
+  useEffect(() => {
+    const getAllCourse = async () => {
+      if(show) {
+        const res = await fetchAllCourse();
+        setCourses(res);
+      }
+    }
+
+    getAllCourse()
+  }, [show])
 
   const getCurrentDateTime = () => {
     const now = new Date();
@@ -79,6 +64,11 @@ const TeamScheduleForm = ({ closeForm, onAddSchedule }) => {
   };
 
   const setEndDateTime = (value) => {
+    const startDateTime = startAt || getCurrentDateTime();
+    if (value < startDateTime) {
+      alert("시작 시간 이후의 날짜와 시간을 선택해주세요.");
+      return;
+    }
     setEndAt(value);
   };
 
@@ -88,14 +78,7 @@ const TeamScheduleForm = ({ closeForm, onAddSchedule }) => {
       nameRef.current.focus();
       return;
     }
-    if (!type) {
-      alert('일정 유형을 선택해주세요');
-      return;
-    }
-    if (startAt && endAt && endAt < startAt) {
-      alert("종료 날짜는 시작 날짜 이후여야 합니다.");
-      return;
-    }
+
     if (isFetching) {
       alert('잠시만 기다려주세요');
       return;
@@ -103,10 +86,10 @@ const TeamScheduleForm = ({ closeForm, onAddSchedule }) => {
 
     try {
       setIsFetching(true);
-      const res = await addTeamSchedule(data, teamId);
+      const res = await addCourseSchedule(courseId, data);
       console.log(res);
       alert('일정을 등록했습니다.');
-      onAddSchedule();
+      handleClose(); // 등록 후 모달 닫기
     } catch (e) {
       console.error(e);
     } finally {
@@ -116,20 +99,26 @@ const TeamScheduleForm = ({ closeForm, onAddSchedule }) => {
 
   const data = {
     name,
-    "scheduleType": type,
+    scheduleType: type,
     startAt,
     endAt,
     description,
   };
 
   return (
-    <ContentWrapper>
-      <FormDiv>
-        <h5>일정 등록하기</h5>
-        <StyledSpan><StarSpan>*</StarSpan>는 필수 입력값입니다.</StyledSpan>
+    <Modal show={show} onHide={handleClose} centered>
+      <Modal.Header closeButton>
+        <Modal.Title>코스 일정 등록하기</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <StyledSpan>
+          <StarSpan>*</StarSpan>는 필수 입력값입니다.
+        </StyledSpan>
         <Form onSubmit={(e) => e.preventDefault()}>
           <Form.Group className="mb-3">
-            <Form.Label>일정 이름<StarSpan>*</StarSpan></Form.Label>
+            <Form.Label>
+              일정 이름<StarSpan>*</StarSpan>
+            </Form.Label>
             <Form.Control
               type="text"
               placeholder="일정명을 입력하세요"
@@ -139,21 +128,50 @@ const TeamScheduleForm = ({ closeForm, onAddSchedule }) => {
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>일정 유형<StarSpan>*</StarSpan></Form.Label>
+            <Form.Label>
+              코스<StarSpan>*</StarSpan>
+            </Form.Label>
             <Form.Select
               className="w-50"
-              value={type}
+              onChange={(e) => setCourseId(e.target.value)}
+            >
+              {
+                courses.length > 0 ? 
+                <>
+                  <option>유형을 선택하세요</option>
+                  {
+                    courses.map(course => 
+                      <option 
+                        value={course.id}
+                        key={course.id}
+                      >
+                        {course.name}
+                      </option>
+                    )
+                  }
+                </>
+                :
+                <option>코스가 없습니다.</option>
+              }
+            </Form.Select>
+            <Form.Label>
+              일정 유형<StarSpan>*</StarSpan>
+            </Form.Label>
+            <Form.Select
+              className="w-50"
               onChange={(e) => setType(e.target.value)}
             >
-              <option value="">유형을 선택하세요</option>
-              <option value="MEETING">회의, 약속</option>
-              <option value="RBF">RBF</option>
-              <option value="SCRUM">스크럼</option>
-              <option value="ATTENDANCE">출결</option>
+              <option>유형을 선택하세요</option>
+              <option value="PROJECT">프로젝트</option>
+              <option value="LECTURE">특강</option>
+              <option value="TEST">테스트</option>
+              <option value="COMPLETION">수료</option>
             </Form.Select>
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>시작 날짜 및 시간<StarSpan>*</StarSpan></Form.Label>
+            <Form.Label>
+              시작 날짜 및 시간<StarSpan>*</StarSpan>
+            </Form.Label>
             <Form.Control
               type="datetime-local"
               value={startAt}
@@ -184,18 +202,16 @@ const TeamScheduleForm = ({ closeForm, onAddSchedule }) => {
           </Form.Group>
           <Form.Group className="mb-3">
             <ButtonDiv>
-              <Button variant="danger" onClick={closeForm}>
+              <Button variant="secondary" onClick={handleClose}>
                 닫기
               </Button>
-              <Button onClick={enrollTeamSchedule}>
-                일정 등록
-              </Button>
+              <Button onClick={enrollTeamSchedule}>일정 등록</Button>
             </ButtonDiv>
           </Form.Group>
         </Form>
-      </FormDiv>
-    </ContentWrapper>
+      </Modal.Body>
+    </Modal>
   );
 };
 
-export default TeamScheduleForm;
+export default CourseScheduleForm;

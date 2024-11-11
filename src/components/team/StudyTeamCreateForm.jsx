@@ -150,7 +150,7 @@ const StudyTeamCreateForm = ({ onTeamCreated }) => {
       courseId,
       "teamType": "STUDY",
       name,
-      userIds,
+      "userIds": [...userIds, leaderId],
       leaderId
     }
   }

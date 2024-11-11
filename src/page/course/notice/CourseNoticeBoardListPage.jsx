@@ -58,7 +58,7 @@ const CourseNoticeBoardListPage = ({ isAdmin }) => {
   };
 
   const moveToNoticeForm = () => {
-    navigate(`${ROUTES.WRITE}`); // 공지사항 작성 페이지로 이동
+    navigate(`${ROUTES.COURSE}${ROUTES.NOTICE}${ROUTES.WRITE}`); // 공지사항 작성 페이지로 이동
   };
 
   return (

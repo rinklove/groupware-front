@@ -11,6 +11,7 @@ import { useTeam } from '../../../components/hook/UseTeam'
 
 const ContentWrapper = styled.div`
   min-height: 60vh;
+  margin-top: 3em;
 
   & > div {
     margin-top: 1em;

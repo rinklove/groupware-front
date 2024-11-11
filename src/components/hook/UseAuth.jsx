@@ -10,6 +10,9 @@ export const useAuth = () => {
   const login = async (data) => {
     const res = await post(LOGIN, data);
     console.log(res);
+    if(res.status !== HttpStatusCode.Ok) {
+      throw res.data
+    }
     return res;
   }
 

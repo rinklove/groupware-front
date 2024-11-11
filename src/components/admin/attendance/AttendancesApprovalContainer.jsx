@@ -5,20 +5,25 @@ import { Button } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '../../../constants/routes'
 
-const AttendancesApprovalContainer = () => {
+const AttendancesApprovalContainer = ({isAdmin}) => {
 
   const [attendances, setAttendances] = useState([])
+  const [data, setData] = useState()
+  
   const { getWaitingAttendances } = UseAttendanceApi()
   const navigate = useNavigate();
 
   const fetchData = async () => {
     const res = await getWaitingAttendances()
-    setAttendances(res)
+    setData(res)
+    setAttendances(res.content)
   }
 
   useEffect(() => {
-    fetchData()
-  }, [])
+    if(isAdmin) {
+      fetchData()
+    }
+  }, [isAdmin])
 
   const moveToAdminList = () => {
     navigate(`${ROUTES.ADMIN}${ROUTES.ATTENDANCE}${ROUTES.LIST}`)
@@ -39,6 +44,7 @@ const AttendancesApprovalContainer = () => {
           <AttendanceInfo
             key={attendance.attendanceId}
             attendance={attendance}
+            updateData={() => fetchData()}
           />
         )
         :

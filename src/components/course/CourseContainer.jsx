@@ -7,17 +7,17 @@ const CoursesDiv = styled.div`
   max-width: 70em;
   margin: auto;
   margin-top: 2em;
-  overflow-x: auto; /* 가로 스크롤 허용 */
-  white-space: nowrap; /* 탭들이 한 줄에 나열되도록 설정 */
+  overflow-x: auto;
+  white-space: nowrap;
   
   .nav-tabs {
-    display: flex; /* 탭을 가로로 정렬 */
-    flex-wrap: nowrap; /* 탭이 줄바꿈되지 않도록 설정 */
+    display: flex;
+    flex-wrap: nowrap;
   }
 
   .nav-item {
-    flex-shrink: 0; /* 탭 크기가 줄어들지 않도록 설정 */
-    min-width: 10em; /* 탭의 최소 너비 설정 */
+    flex-shrink: 0;
+    min-width: 10em;
   }
 `;
 
@@ -33,24 +33,28 @@ const CourseContainer = ({ isAdmin, onSelect }) => {
     };
 
     getFetchedData();
-  }, [isAdmin]); // isAdmin 값이 변경될 때만 다시 실행
+  }, [isAdmin]);
 
   return (
     <CoursesDiv>
-      <Tabs
-        id="uncontrolled-tab-example"
-        onSelect={onSelect}
-        className="mb-3"
-        fill
-      >
-        {courses.map((course) => (
-          <Tab 
-            key={course.id}
-            eventKey={course.id}
-            title={course.name}
-          />
-        ))}
-      </Tabs>
+      {courses.length > 0 ? (
+        <Tabs
+          defaultActiveKey={courses[0]?.id}
+          onSelect={onSelect} // 선택된 tab의 eventKey를 전달
+          className="mb-3"
+          fill
+        >
+          {courses.map((course) => (
+            <Tab 
+              key={course.id}
+              eventKey={course.id} // 각 탭의 id를 eventKey로 설정
+              title={course.name}
+            />
+          ))}
+        </Tabs>
+      ) : (
+        <span>아직 코스가 없습니다. 코스를 등록하러 이동하세요!</span>
+      )}
     </CoursesDiv>
   );
 };

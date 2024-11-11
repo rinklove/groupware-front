@@ -1,6 +1,7 @@
 //사용자
 export const ADMIN = '/admin';
-export const USERS = '/users';
+export const ALL = '/all'
+export const USERS = '/users'
 export const ROLE = '/role';
 
 //auth
@@ -13,19 +14,25 @@ export const SEND_SIGNUP_FORM = '/email/admin'
 //attendance
 export const ATTANDANCES = '/attendances'
 export const ADMIN_ATTANDANCES = `${ADMIN}${ATTANDANCES}`
+export const ADMIN_ATTENDANCES_REQUESTED = `${ADMIN_ATTANDANCES}/students`
 export const APPROVE = '/approve'
-export const REJECT = 'reject'
+export const REJECT = '/reject'
 
 export const CATEGORY = '/category'
 
 //chat
+export const CHATS = '/chats'
 export const CHANNEL = '/channel'
+export const PARTICIPANTS = '/participants'
+export const INVITE = '/invite'
+export const SHOW = '/show'
 
 //course
 export const COURSE = '/course'
 export const COURSE_ADMIN = `${COURSE}${ADMIN}`
-export const ALL_COURSE = `${COURSE_ADMIN}/all`
+export const ALL_COURSE = `${COURSE_ADMIN}${ALL}`
 export const COURSE_USERS = `${COURSE}/users`
+export const TOTAL_USERS = `${USERS}${ALL}`
 
 //group
 export const TEAM = '/teams'
@@ -46,6 +53,7 @@ export const COMMENTS = '/comments'
 //team
 export const ADMIN_WAITING = `${TEAM}${ADMIN}/waiting`
 export const ADMIN_APPROVAL = `${TEAM}${ADMIN}/approval`
+export const ADMIN_REJECTION = `${TEAM}${ADMIN}/rejection`
 export const TEAM_MEMBERS = `${TEAM}/members`
 
 //schedule

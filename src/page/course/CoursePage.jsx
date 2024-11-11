@@ -10,6 +10,7 @@ import CourseBoardInfoPage from './CourseBoardInfoPage';
 import CourseTeamPage from './team/CourseTeamPage';
 import AdminCourseSelector from '../../components/common/AdminCourseSelector';
 import AttendancePage from '../attendance/AttendancePage';
+import ChatPage from '../chat/ChatPage';
 
 const ContentWrapper = styled.div`
   margin: auto;
@@ -51,6 +52,7 @@ const CoursePage = () => {
         <Route path={`${ROUTES.TEAM}/*`} element={<CourseTeamPage isAdmin={isAdmin}/>}/>
         <Route path={`${ROUTES.ATTENDANCE}/*`} element={<AttendancePage isAdmin={isAdmin}/>}/>
         <Route path={`${ROUTES.BOARD}${ROUTES.INFO}`} element={<CourseBoardInfoPage/>}/>
+        <Route path={`${ROUTES.CHAT}/*`} element={<ChatPage />} />
       </Routes>
     </ContentWrapper>
   );

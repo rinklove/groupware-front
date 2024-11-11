@@ -1,6 +1,10 @@
-import React from 'react'
-import { ListGroup } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react'
+import { Badge, ListGroup } from 'react-bootstrap';
 import styled from 'styled-components';
+import ScheduleInfo from './ScheduleInfo';
+import useScheduleApi from '../hook/UseScheduleApi';
+import { useCourse } from '../hook/UseCourse';
+import { useTeam } from '../hook/UseTeam';
 
 const ScheduleDiv = styled.div`
   width: ${({width}) => (width || '100%')};
@@ -15,26 +19,25 @@ const ScheduleDiv = styled.div`
   }
 `;
 
-const Title = styled.h6`
-  font-size: 1.1em;
-  font-weight: 700;
-`
 
-const ScheduleList = ({ data, width, title = '일정 목록', children }) => {
-  const convertTime = (time) => {
-    const date = new Date(time);
-    const now = new Date();
-    const isSameYear = date.getFullYear() === now.getFullYear();
-    
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1; // 월은 0부터 시작하므로 +1
-    const day = date.getDate();
-    const hours = date.getHours();
-    
-    return isSameYear
-      ? `${month}월 ${day}일 ${hours}시`
-      : `${year}년 ${month}월 ${day}일 ${hours}시`;
-  };
+const ScheduleList = ({ data, width, isTeamSchedule, isAdmin = false, title = '일정 목록', children}) => {
+
+  const [fetchedData, setFetchedData] = useState([]);
+  const {getCourseScheduleById, getTeamSchedulebyId} = useScheduleApi();
+  const { courseId } = useCourse();
+  const { teamId } = useTeam()
+
+  const fetchData = async () => {
+    const res = await isTeamSchedule ? 
+        getTeamSchedulebyId(teamId)
+        : getCourseScheduleById(courseId)
+
+      setFetchedData(res);
+  }
+
+  useEffect(() => {
+    setFetchedData(data)
+  }, [data])
 
   return (
     <ScheduleDiv width={width} className="overflow-auto">
@@ -43,17 +46,16 @@ const ScheduleList = ({ data, width, title = '일정 목록', children }) => {
         <div>{children}</div>
       </div>
       <ListGroup>
-        {data.length > 0 ? (
-          data.map((per) => (
-            <ListGroup.Item key={per.id}>
-              <Title>{per.name}</Title>
-              <span>
-                {convertTime(per.startAt)} ~ {convertTime(per.endAt)}
-              </span>
-              <div>
-                <span>{per.description}</span>
-              </div>
-            </ListGroup.Item>
+        {
+          fetchedData.length > 0 ? (
+          fetchedData.map((per) => (
+            <ScheduleInfo
+              key={per.id}
+              isAdmin={isAdmin}
+              isTeamSchedule={isTeamSchedule}
+              data={per}
+              updateData={() => fetchData()}
+            />
           ))
         ) : (
           <ListGroup.Item>

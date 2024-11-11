@@ -4,7 +4,7 @@ import { ROUTES } from '../../constants/routes'
 import MainPage from './MainPage'
 import AdminCoursePage from './course/AdminCoursePage'
 import AdminCourseTeamPage from './team/AdminCourseTeamPage'
-import AdminAttendanceListPage from './admin/AdminAttendanceListPage'
+import AdminAttendanceListPage from './attendance/AdminAttendanceListPage'
 
 
 const AdminPage = () => {

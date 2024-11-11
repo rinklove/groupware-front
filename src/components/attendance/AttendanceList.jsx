@@ -51,19 +51,26 @@ const ToggleButton = ({ eventKey }) => {
 
 const AttendanceList = () => {
   const [createShow, setCreateShow] = useState(false);
-  const [data, setData] = useState(null);
+  const [data, setData] = useState();
   const [updateShow, setUpdateShow] = useState(false);
   const [attendances, setAttendances] = useState([]);
   const { getMyAttendances, requestAttendance, updateAttendance, deleteAttendance } = useAttendanceApi();
 
+
+
   const fetchData = async () => {
     const res = await getMyAttendances();
-    setAttendances(res);
+    setAttendances(res.content);
+    setData(res)
   };
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  // useEffect(() => {
+  //   fetchData();
+  // }, [requestAttendance, updateAttendance]);
 
   const handleUpdate = (attendance) => {
     setData(attendance);
@@ -100,6 +107,12 @@ const AttendanceList = () => {
       : `${year}년 ${month}월 ${day}일 ${hours}시`;
   };
 
+  const getState = (state) => {
+    if(state.toUpperCase() ==="PENDING") return "대기"
+    if(state.toUpperCase() ==="APPROVED") return "승인"
+    return "거절"
+  } 
+
   return (
     <>
       <ContentWrapper>
@@ -121,6 +134,7 @@ const AttendanceList = () => {
                 <th>시작일</th>
                 <th>종료일</th>
                 <th>사유</th>
+                <th>상태</th>
                 <th>추가 작업</th>
               </tr>
             </thead>
@@ -134,6 +148,9 @@ const AttendanceList = () => {
                       <td>{convertTime(a.endAt)}</td>
                       <td>
                         <ToggleButton eventKey={`${index}`} />
+                      </td>
+                      <td>
+                        {getState(a.state)}
                       </td>
                       <td>
                         <ButtonDiv>

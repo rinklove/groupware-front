@@ -47,6 +47,7 @@ const AdminCourseTeamContainer = ({courseId}) => {
       if(!courseId) return;
       
       const res = await getAllTeamByCourse(courseId) 
+      setTeams(res);
       console.log(res);
     }
 
